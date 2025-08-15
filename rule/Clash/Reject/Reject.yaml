@@ -57,3 +57,9 @@ payload:
   - DOMAIN,app.chat.xiaomi.net
   - DOMAIN,resolver.msg.xiaomi.net
   - DEST-PORT,5222
+  - DOMAIN,www.internetdownloadmanager.com
+  - DOMAIN,mirror.internetdownloadmanager.com
+  - DOMAIN,internetdownloadmanager.com
+  - DOMAIN,registeridm.com
+  - DOMAIN,www.registeridm.com
+  - DOMAIN,secure.registeridm.com
