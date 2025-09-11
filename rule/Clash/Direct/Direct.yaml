@@ -78,4 +78,4 @@ payload:
   - DOMAIN-SUFFIX,privado.io
   - DOMAIN-SUFFIX,hust.edu.cn
   - IP-CIDR,38.207.173.0/22,no-resolve
-  - DOMAIN-SUFFIX,dingtalk.com
+  - DOMAIN,tls-desktop.dingtalk.com
