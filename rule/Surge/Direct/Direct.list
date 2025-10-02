@@ -79,3 +79,6 @@ DOMAIN-SUFFIX,privado.io
 DOMAIN-SUFFIX,hust.edu.cn
 IP-CIDR,38.207.173.0/22,no-resolve
 DOMAIN,tls-desktop.dingtalk.com
+DOMAIN,mix.dahh.vip
+DOMAIN,v1.uhdnow.com
+DOMAIN,global.uhdnow.com
