@@ -31,3 +31,6 @@ payload:
   - IP-CIDR,130.61.137.163/32,no-resolve
   - IP-CIDR,139.185.47.25/32,no-resolve
   - DOMAIN,rfc.uhdnow.com
+  - DOMAIN,mix.dahh.vip
+  - DOMAIN,v1.uhdnow.com
+  - DOMAIN,global.uhdnow.com
