@@ -15,6 +15,7 @@
 # （所有具体拦截在 [URL Rewrite] 中）
 
 [URL Rewrite]
+^https?:\/\/impdsp\.meituan\.com(:443)?\/.+ - reject
 # —— 强力拦截（直接 - reject） ——
 # 开屏 / 启动页 / 广告位
 ^https?:\/\/api\.(?:finka|finkapp)\.cn\/(?:v\d+\/)?(?:splash|startup|open|boot|welcome)(?:\/.*)? - reject
@@ -44,4 +45,4 @@ http-response-jq ^https?:\/\/api\.(?:finka|finkapp)\.cn\/.+\/(?:config|init|star
 
 [MITM]
 # 强力版需要对这些 host 启用 MITM，以便 Body Rewrite / Script 生效
-hostname = %APPEND% finka.cn, *.finka.cn, finkapp.cn, *.finkapp.cn, finka-h5.finka.cn, finka-h5.finkapp.cn, pic.finkapp.cn, img.finka.cn, img.finkapp.cn
+hostname = %APPEND% finka.cn, *.finka.cn, finkapp.cn, *.finkapp.cn, finka-h5.finka.cn, finka-h5.finkapp.cn, pic.finkapp.cn, img.finka.cn, img.finkapp.cn, impdsp.meituan.com
