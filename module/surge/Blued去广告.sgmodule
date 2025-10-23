@@ -1,0 +1,23 @@
+#!name=Blued 去广告
+#!desc=从 Loon 转换：只包含 Blued 的广告拦截（URL Rewrite + Script + MITM）
+#!author=converted-by-ChatGPT
+#!category=BetaModule
+#!tag=去广告
+#!date=2025-10-23 08:05:31
+
+# 说明：
+# - URL Rewrite: 完全拦截广告接口（删请求）。
+# - Script (http-response): 用于在正常接口返回中删除广告字段或对响应做更精细修改（删内容）。
+# - MITM: 把需要修改响应的主机加入 MITM，以便 Script / Body Rewrite 生效。
+
+[URL Rewrite]
+# Blued — 拦截独立的广告数据接口（来源：loon.txt） 
+^https?:\/\/social\.blued\.cn\/users\/recommend - reject-dict
+^https?:\/\/social\.blued\.cn\/users\/no_auth\/benefit - reject-dict
+
+[Script]
+# Blued — 对某些接口用脚本处理以更精细地去广告（来源：loon.txt）
+移除 Blued 广告 = type=http-response, pattern=^https?:\/\/social\.blued\.cn\/users\/.+\/more\/ios\?v=2, script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/blued.js, requires-body=true, timeout=10
+
+[MITM]
+hostname = %APPEND% social.blued.cn
