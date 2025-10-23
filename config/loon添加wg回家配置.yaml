@@ -257,6 +257,7 @@ https://raw.githubusercontent.com/loon0x00/loonExampleConfig/master/Rewrite/Auto
 [Plugin]
 https://kelee.one/Tool/Loon/Lpx/Block_HTTPDNS.lpx, enabled=true
 https://kelee.one/Tool/Loon/Lpx/BlockAdvertisers.lpx, enabled=true
+https://raw.githubusercontent.com/sooyaaabo/Loon/main/Plugin/BlockAds.lpx, enabled=true
 https://kelee.one/Tool/Loon/Lpx/Remove_ads_by_keli.lpx, enabled=false
 https://kelee.one/Tool/Loon/Lpx/Google.lpx, enabled=true
 https://kelee.one/Tool/Loon/Lpx/Script-Hub.lpx, enabled=true
@@ -271,6 +272,7 @@ https://kelee.one/Tool/Loon/Lpx/Keep_remove_ads.lpx, enabled=true
 https://kelee.one/Tool/Loon/Lpx/123NetWorkDisk_remove_ads.lpx, enabled=true
 https://kelee.one/Tool/Loon/Lpx/MeiTu_remove_ads.lpx, enabled=true
 https://kelee.one/Tool/Loon/Lpx/PinDuoDuo_remove_ads.lpx, enabled=true
+https://raw.githubusercontent.com/sooyaaabo/Loon/main/Plugin/Goofish.lpx, enabled=true
 https://kelee.one/Tool/Loon/Lpx/FleaMarket_remove_ads.lpx, enabled=true
 https://kelee.one/Tool/Loon/Lpx/ColorfulClouds_remove_ads.lpx, enabled=true
 https://kelee.one/Tool/Loon/Lpx/AutoHome_remove_ads.lpx, enabled=true
