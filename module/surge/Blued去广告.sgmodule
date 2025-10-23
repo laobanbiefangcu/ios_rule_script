@@ -1,22 +1,32 @@
-#!name=Blued 去广告
-#!desc=从 Loon 转换：只包含 Blued 的广告拦截（URL Rewrite + Script + MITM）
-#!author=converted-by-ChatGPT
+#!name=Blued去广告
+#!desc=仅含 Blued（social.blued.cn）去广告；严格使用 Surge 支持的动作（reject / Map Local），不含 reject-dict。
+#!author=ChatGPT
 #!category=BetaModule
-#!tag=去广告
-#!date=2025-10-23 08:05:31
+#!tag=去广告, Blued
+#!date=2025-10-23 08:12:49
 
-# 说明：
-# - URL Rewrite: 完全拦截广告接口（删请求）。
-# - Script (http-response): 用于在正常接口返回中删除广告字段或对响应做更精细修改（删内容）。
-# - MITM: 把需要修改响应的主机加入 MITM，以便 Script / Body Rewrite 生效。
+# ================== 使用说明 ==================
+# 本模块完全遵循 Surge 原生语法：
+# 1) URL Rewrite 采用 “- reject” 硬拦（不返回内容）。
+# 2) 若 App 需要返回结构，请改用下方 Map Local（返回空 JSON "{}", 200）。
+# 3) 脚本用于在正常数据中“剔除广告字段”，需要开启 MITM。
+# ==============================================
 
 [URL Rewrite]
-# Blued — 拦截独立的广告数据接口（来源：loon.txt） 
-^https?:\/\/social\.blued\.cn\/users\/recommend - reject-dict
-^https?:\/\/social\.blued\.cn\/users\/no_auth\/benefit - reject-dict
+# —— 方案A：删请求（Surge 原生动作） ——
+# 来源：Loon 合集中的 Blued 广告接口（原写法为 reject-dict，这里改为 - reject 以符合 Surge 语法）。
+^https?:\/\/social\.blued\.cn\/users\/recommend - reject
+^https?:\/\/social\.blued\.cn\/users\/no_auth\/benefit - reject
+
+[Map Local]
+# —— 方案B：假返回（如需，请注释掉上面的相同行，再取消以下注释启用） ——
+# 如果 - reject 导致界面空白/报错，可启用空 JSON 回填：
+# ^https?:\/\/social\.blued\.cn\/users\/recommend data-type=text data="{{}}" status-code=200
+# ^https?:\/\/social\.blued\.cn\/users\/no_auth\/benefit data-type=text data="{{}}" status-code=200
 
 [Script]
-# Blued — 对某些接口用脚本处理以更精细地去广告（来源：loon.txt）
+# —— 方案C：精细净化（需 MITM 打开 social.blued.cn） ——
+# 功能：当接口返回“正常数据 + 广告”混在一起时，只剔除广告字段。
 移除 Blued 广告 = type=http-response, pattern=^https?:\/\/social\.blued\.cn\/users\/.+\/more\/ios\?v=2, script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/blued.js, requires-body=true, timeout=10
 
 [MITM]
