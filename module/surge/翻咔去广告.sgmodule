@@ -1,0 +1,27 @@
+#!name=翻咔去广告
+#!desc=稳妥版：优先使用 Map Local（空 JSON 回填）以避免页面空白或崩溃；保留 Body Rewrite 供后续精修。
+#!author=ChatGPT
+#!category=BetaModule
+#!tag=去广告, Finka
+#!date=2025-10-23 08:21:55
+
+# 说明：本版本默认启用 Map Local（空 JSON 返回 "{}"），以确保客户端不会因拒绝请求而报错或加载失败。
+# 使用步骤：把本模块放到 Surge 并启用；若发现界面仍有广告，再考虑开启 Body Rewrite 或精细脚本。
+# 建议观察方式：Surge -> 调试 -> 日志（查看被 Map Local 的请求，确认是否需要更精确的处理）。
+
+[Map Local]
+# —— 稳妥策略：对翻咔中可能的启动页/开屏/广告接口返回空 JSON ——
+^https?:\/\/api\.(?:finka|finkapp)\.cn\/.+\/(?:splash|startup|ad|advert|banner|popup) data-type=text data="{{}}" status-code=200
+^https?:\/\/finka-h5\.(?:finka|finkapp)\.cn\/.+\/(?:ad|advert|splash|popup|banner) data-type=text data="{{}}" status-code=200
+^https?:\/\/pic\.finkapp\.cn\/.+\/(?:ad|advert|banner) data-type=text data="{{}}" status-code=200
+
+[Body Rewrite]
+# —— 可选：当某些接口同时返回正常内容与广告（需日志验证），可启用下面 jq 行做局部清理 ——
+# http-response-jq ^https?:\/\/api\.(?:finka|finkapp)\.cn\/.+\/(?:config|init|startup|splash) 'del(.adList?) | del(.ads?) | del(.banner?) | del(.splash?) | del(.popup?)'
+
+[Script]
+# —— 若需要更复杂逻辑（例如：多个条件同时成立才删除），可改为 http-response 脚本（待你确认具体接口后我可实现） ——
+
+[MITM]
+# Map Local 不需要 MITM，但 Body Rewrite / Script 需要；为后续精修，一并添加常见 host
+hostname = %APPEND% finka.cn, *.finka.cn, finkapp.cn, *.finkapp.cn, finka-h5.finka.cn, finka-h5.finkapp.cn, pic.finkapp.cn
