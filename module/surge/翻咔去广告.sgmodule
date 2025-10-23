@@ -1,27 +1,47 @@
-#!name=翻咔去广告
-#!desc=稳妥版：优先使用 Map Local（空 JSON 回填）以避免页面空白或崩溃；保留 Body Rewrite 供后续精修。
+#!name=翻咔 Finka 去广告（强力版 · Surge 模块）
+#!desc=强力版：开启广泛的广告/开屏/banner 拦截（URL Rewrite - reject）与 Body Rewrite 清理；可能会导致部分功能/页面缺失，若出现问题请切换到 Map Local 或精修版。
 #!author=ChatGPT
 #!category=BetaModule
-#!tag=去广告, Finka
-#!date=2025-10-23 08:21:55
+#!tag=去广告, Finka, 强力
+#!date=2025-10-23 08:30:34
 
-# 说明：本版本默认启用 Map Local（空 JSON 返回 "{}"），以确保客户端不会因拒绝请求而报错或加载失败。
-# 使用步骤：把本模块放到 Surge 并启用；若发现界面仍有广告，再考虑开启 Body Rewrite 或精细脚本。
-# 建议观察方式：Surge -> 调试 -> 日志（查看被 Map Local 的请求，确认是否需要更精确的处理）。
+# 注意（重要）：
+# 1) 本模块为“强力拦截”策略，会尽可能阻断常见的广告/开屏/轮播/榜单/推荐接口，可能导致某些页面内容缺失或 App 行为异常。
+# 2) 若出现卡死/白屏/功能缺失，请立即禁用本模块或替换为 Map Local（返回空 JSON）版本：Finka_Surge_MapLocal.sgmodule。
+# 3) 若需我按日志精修（保留功能、只删广告），回复“精修 Finka”并提供 Surge 日志样例。
 
-[Map Local]
-# —— 稳妥策略：对翻咔中可能的启动页/开屏/广告接口返回空 JSON ——
-^https?:\/\/api\.(?:finka|finkapp)\.cn\/.+\/(?:splash|startup|ad|advert|banner|popup) data-type=text data="{{}}" status-code=200
-^https?:\/\/finka-h5\.(?:finka|finkapp)\.cn\/.+\/(?:ad|advert|splash|popup|banner) data-type=text data="{{}}" status-code=200
-^https?:\/\/pic\.finkapp\.cn\/.+\/(?:ad|advert|banner) data-type=text data="{{}}" status-code=200
+[Rule]
+# 保留空 Rule 段以兼容某些 Surge 版本的模块格式
+# （所有具体拦截在 [URL Rewrite] 中）
+
+[URL Rewrite]
+# —— 强力拦截（直接 - reject） ——
+# 开屏 / 启动页 / 广告位
+^https?:\/\/api\.(?:finka|finkapp)\.cn\/(?:v\d+\/)?(?:splash|startup|open|boot|welcome)(?:\/.*)? - reject
+^https?:\/\/api\.(?:finka|finkapp)\.cn\/.+\/(?:ad|advert|advertising|ads|banner|popup|promote|promotion)(?:\/.*)? - reject
+^https?:\/\/finka-h5\.(?:finka|finkapp)\.cn\/.+\/(?:ad|advert|advertising|ads|banner|popup|promote|promotion)(?:\/.*)? - reject
+^https?:\/\/pic\.finkapp\.cn\/.+\/(?:ad|advert|banner|popup|promotion)(?:\/.*)? - reject
+^https?:\/\/img\.(?:finka|finkapp)\.cn\/.+\/(?:ad|banner|popup)(?:\/.*)? - reject
+^https?:\/\/.*(?:ad|ads|advert|splash|startup|banner|popup|promotion).*(?:finka|finkapp).*\.(?:cn|com)(?:\/.*)? - reject
+
+# 常见推荐 / 自定义流量/追踪（可视情况禁用）
+^https?:\/\/api\.(?:finka|finkapp)\.cn\/.+\/(?:recommend|recommendation|recommendations|related|feeds|feed)(?:\/.*)? - reject
+^https?:\/\/api\.(?:finka|finkapp)\.cn\/.+\/(?:hot|hotList|rank|ranking|rankings)(?:\/.*)? - reject
 
 [Body Rewrite]
-# —— 可选：当某些接口同时返回正常内容与广告（需日志验证），可启用下面 jq 行做局部清理 ——
-# http-response-jq ^https?:\/\/api\.(?:finka|finkapp)\.cn\/.+\/(?:config|init|startup|splash) 'del(.adList?) | del(.ads?) | del(.banner?) | del(.splash?) | del(.popup?)'
+# —— 清理混杂在正常接口里的一些广告字段 ——
+# 这些规则在拦截不到独立广告接口时仍能减少界面内嵌广告（谨慎启用）
+http-response-jq ^https?:\/\/api\.(?:finka|finkapp)\.cn\/.+\/(?:config|init|startup|home|homepage|feeds|feed) 'del(.ads?) | del(.adList?) | del(.banner?) | del(.splash?) | del(.popup?) | del(.promotions?) | del(.recommendations?)'
+
+[Map Local]
+# —— 备用（如 - reject 导致重要功能缺失，建议启用 map local 替代某些规则）
+# ^https?:\/\/api\.(?:finka|finkapp)\.cn\/.+\/(?:splash|startup|ad|advert|banner|popup) data-type=text data="{{}}" status-code=200
 
 [Script]
-# —— 若需要更复杂逻辑（例如：多个条件同时成立才删除），可改为 http-response 脚本（待你确认具体接口后我可实现） ——
+# 若需要更复杂判断（多条件/headers/请求体判断），我可以根据日志把部分规则转成 http-response 脚本
+# 示例（保留为注释）：
+# 移除复杂广告 = type=http-response, pattern=^https?:\/\/api\.(?:finka|finkapp)\.cn\/.+\/more, script-path=https://example.com/finka_remove_ads.js, requires-body=true
 
 [MITM]
-# Map Local 不需要 MITM，但 Body Rewrite / Script 需要；为后续精修，一并添加常见 host
-hostname = %APPEND% finka.cn, *.finka.cn, finkapp.cn, *.finkapp.cn, finka-h5.finka.cn, finka-h5.finkapp.cn, pic.finkapp.cn
+# 强力版需要对这些 host 启用 MITM，以便 Body Rewrite / Script 生效
+hostname = %APPEND% finka.cn, *.finka.cn, finkapp.cn, *.finkapp.cn, finka-h5.finka.cn, finka-h5.finkapp.cn, pic.finkapp.cn, img.finka.cn, img.finkapp.cn
