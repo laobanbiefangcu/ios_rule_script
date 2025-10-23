@@ -1,4 +1,4 @@
-#!name=翻咔 Finka 去广告（强力版 · Surge 模块）
+#!name=翻咔 Finka 去广告
 #!desc=强力版：开启广泛的广告/开屏/banner 拦截（URL Rewrite - reject）与 Body Rewrite 清理；可能会导致部分功能/页面缺失，若出现问题请切换到 Map Local 或精修版。
 #!author=ChatGPT
 #!category=BetaModule
