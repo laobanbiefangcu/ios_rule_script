@@ -5,7 +5,7 @@
 
 [URL Rewrite]
 # 翻咔常见的开屏素材：A* 文件位于 member_ugoutsideop/afts/file/
-^https?:\/\/mdn\.alipayobjects\.com\/member_ugoutsideop\/afts\/file\/A\*.* - reject
+^https?:\/\/mdn\.alipayobjects\.com\/member_ugoutsideop\/afts\/file\/A\*.* - reject-tinygif
 
 [MITM]
 hostname = mdn.alipayobjects.com
