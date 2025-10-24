@@ -1,0 +1,11 @@
+#!name=翻咔去广告
+#!desc=翻咔开屏广告阻断：AlipayObjects A* 资源 → 占位图
+#!author=you
+#!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/F/Finka.png
+
+[URL Rewrite]
+# 翻咔常见的开屏素材：A* 文件位于 member_ugoutsideop/afts/file/
+^https?:\/\/mdn\.alipayobjects\.com\/member_ugoutsideop\/afts\/file\/A\*.* - reject-img
+
+[MITM]
+hostname = mdn.alipayobjects.com
