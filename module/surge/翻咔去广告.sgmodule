@@ -1,11 +1,74 @@
-#!name=翻咔去广告
-#!desc=翻咔开屏广告阻断：AlipayObjects A* 资源 → 占位图
+#!name=翻咔去开屏（完整版：Alipay/Baidu/Meituan/Ali 图床）
+#!desc=覆盖常见外链开屏/广告图片：优先 reject-tinygif（官方），必要时可启用 Map Local 回退透明 PNG（200 OK）。
 #!author=you
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/F/Finka.png
 
-[URL Rewrite]
-# 翻咔常见的开屏素材：A* 文件位于 member_ugoutsideop/afts/file/
-^https?:\/\/mdn\.alipayobjects\.com\/member_ugoutsideop\/afts\/file\/A\*.* - reject-tinygif
+#########################################
+# 说明
+# - 优先使用官方策略：reject-tinygif（返回 1x1 透明 GIF）
+# - 若 App 对 HTTP 状态或 Content-Type 严格校验，可启用 Map Local 回退（返回 1x1 透明 PNG，200 OK）
+# - 导入后请确保：
+#     1) 模块已启用（Surge → Modules → Enabled）
+#     2) MITM 已开启并已信任证书（见 [MITM]）
+#     3) 模块放到规则优先靠前的位置，避免被更宽泛规则覆盖
+#########################################
 
+[URL Rewrite]
+# 翻咔 alipayobjects（原始示例）
+^https?:\/\/mdn\.alipayobjects\.com\/member_ugoutsideop\/afts\/file\/A\*.* - reject
+
+# alipayobjects 兼容（防止 CDN 路径变化）
+^https?:\/\/(?:[a-z0-9-]+\.)?alipayobjects\.com\/.*\/afts\/file\/.*A.* - reject
+
+# alicdn / ilce（兼容 .jpg / jpg80 / 带 query 的情况）
+^https?:\/\/(?:ilce|img|i[0-9])\.alicdn\.com\/.*\/.*\.(?:jpg|jpeg|png|webp)(?:\d*)?(?:\?.*)?$ - reject
+# 专门匹配 ilce 的 minolta 路径（更精确）
+^https?:\/\/ilce\.alicdn\.com\/minolta\/\d+\/\d+\/.*\.(?:jpg|jpeg|png|webp)(?:\d*)?(?:\?.*)?$ - reject
+
+# Baidu feed-image 图床
+^https?:\/\/feed-image\.baidu\.com\/\d+\/pic\/.*\.(?:jpg|jpeg|png|webp)$ - reject
+^https?:\/\/feed-image\.baidu\.com\/.*\/pic\/.*\.(?:jpg|jpeg|png|webp)$ - reject
+
+# Meituan S3 / nebulafile（精确到 v1/mss_.../nebulafile/<32hex>）
+^https?:\/\/s3plus\.meituan\.net\/v1\/mss_[^\/]+\/nebulafile\/[0-9a-fA-F]{32}(?:\?.*)?$ - reject
+# 更宽泛的 meituan 图片匹配
+^https?:\/\/s3plus\.meituan\.net\/.*\.(?:jpg|jpeg|png|webp)(?:\?.*)?$ - reject
+
+# 兜底：常见图片 CDN + /afts/file/ 路径（谨慎）
+^https?:\/\/.*\/afts\/file\/.*A\*.* - reject-tinygif
+^https?:\/\/.*\.(?:meituan\.net|alicdn\.com|alipayobjects\.com|baidu\.com)\/.*\.(?:jpg|jpeg|png|webp)(?:\?.*)?$ - reject
+
+#########################################
+# Map Local —— 回退（可选，默认注释）
+# 若 App 对 HTTP 状态或 Content-Type 严格校验，取消下面任意行前面的 "#" 即可启用对应回退。
+# data= 后为 1x1 透明 PNG 的 Base64，header= 明确 Content-Type，status-code=200 保持真实语义。
+#########################################
+[Map Local]
+# 1x1 透明 PNG 回退（mdn.alipayobjects）
+#^https?:\/\/mdn\.alipayobjects\.com\/member_ugoutsideop\/afts\/file\/A\*.* data="iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAOb0nX8AAAAASUVORK5CYII=" header="Content-Type: image/png" status-code=200 binary-body=true
+
+# 1x1 透明 PNG 回退（feed-image.baidu）
+#^https?:\/\/feed-image\.baidu\.com\/\d+\/pic\/.*\.(?:jpg|jpeg|png|webp)$ data="iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAOb0nX8AAAAASUVORK5CYII=" header="Content-Type: image/png" status-code=200 binary-body=true
+
+# 1x1 透明 PNG 回退（s3plus.meituan）
+#^https?:\/\/s3plus\.meituan\.net\/v1\/mss_[^\/]+\/nebulafile\/[0-9a-fA-F]{32}(?:\?.*)?$ data="iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAOb0nX8AAAAASUVORK5CYII=" header="Content-Type: image/png" status-code=200 binary-body=true
+
+# 1x1 透明 PNG 回退（alicdn / ilce）
+#^https?:\/\/(?:ilce|img|i[0-9])\.alicdn\.com\/.*\.(?:jpg|jpeg|png|webp)(?:\d*)?(?:\?.*)?$ data="iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAOb0nX8AAAAASUVORK5CYII=" header="Content-Type: image/png" status-code=200 binary-body=true
+
+#########################################
+# MITM —— 确保这些域名被拆包（必要）
+# 建议使用通配子域以覆盖 CDN 变体
+#########################################
 [MITM]
-hostname = mdn.alipayobjects.com
+hostname = mdn.alipayobjects.com, *.alipayobjects.com, alipayobjects.com, g.alicdn.com, *.alicdn.com, ilce.alicdn.com, img.alicdn.com, feed-image.baidu.com, *.baidu.com, s3plus.meituan.net, *.meituan.net
+
+#########################################
+# 使用与排查小贴士
+# 1) 导入并启用模块后，打开 Surge 的 Request Log（实时）观察开屏流程：
+#    - 若只看到 "CONNECT domain:443" 而无路径，说明 MITM/证书未生效，请安装并完全信任 Surge 根证书
+#    - 若命中了不同 CDN 域名/路径，按日志把该域名补入 [URL Rewrite] 与 [MITM]
+# 2) 若某 App 校验 200 或 Content-Type 导致仍显示广告，请启用 Map Local 回退行（取消对应注释）
+# 3) 若规则过于宽泛导致误杀，可把通配正则改为更精确的路径（例如把通配改为特定前缀）
+# 4) 若要更保守：先仅导入针对已知命中日志的那几条精确规则（减少误杀风险）
+#########################################
