@@ -79,3 +79,4 @@ payload:
   - DOMAIN-SUFFIX,hust.edu.cn
   - IP-CIDR,38.207.173.0/22,no-resolve
   - DOMAIN,tls-desktop.dingtalk.com
+  - DOMAIN,api.cloudflare.com
