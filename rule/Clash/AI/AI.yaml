@@ -28,5 +28,8 @@ payload:
   - DOMAIN,aistudio.google.com
   - DOMAIN,generativelanguage.googleapis.com
   - DOMAIN,proactivebackend-pa.googleapis.com
+  - DOMAIN,geller-pa.googleapis.com
+  - DOMAIN,alkalicore-pa.clients6.google.com
+  - DOMAIN,robinfrontend-pa.googleapis.com
   - DOMAIN-SUFFIX,dify.ai
   - DOMAIN,api.github.com
