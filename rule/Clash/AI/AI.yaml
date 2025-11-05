@@ -14,8 +14,9 @@ payload:
   - DOMAIN-KEYWORD,perplexity.ai
   - DOMAIN-KEYWORD,pplx.ai
   - DOMAIN-SUFFIX,meta.ai
-  - DOMAIN-SUFFIX,apple-relay.apple.com
-  - DOMAIN-SUFFIX,apple-relay.cloudflare.com
+  - DOMAIN,apple-relay.apple.com
+  - DOMAIN,apple-relay.cloudflare.com
+  - DOMAIN,gspe1-ssl.ls.apple.com
   - DOMAIN-SUFFIX,humb.apple.com
   - DOMAIN,guzzoni.smoot.apple.com
   - DOMAIN-SUFFIX,poe.com
