@@ -16,9 +16,10 @@ DOMAIN-KEYWORD,perplexity
 DOMAIN-SUFFIX,perplexity.ai
 DOMAIN-SUFFIX,pplx.ai
 DOMAIN-SUFFIX,meta.ai
-DOMAIN-SUFFIX,apple-relay.apple.com
-DOMAIN-SUFFIX,apple-relay.cloudflare.com
-DOMAIN-SUFFIX,humb.apple.com
+DOMAIN,apple-relay.apple.com
+DOMAIN,apple-relay.cloudflare.com
+DOMAIN,gspe1-ssl.ls.apple.com
+DOMAIN,humb.apple.com
 DOMAIN,guzzoni.smoot.apple.com
 DOMAIN-SUFFIX,poe.com
 DOMAIN-SUFFIX,claudeusercontent.com
