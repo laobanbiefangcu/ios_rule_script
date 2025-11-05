@@ -11,8 +11,8 @@ payload:
   - DOMAIN,wrtn-image-ai-character.s3.ap-northeast-2.amazonaws.com
   - DOMAIN-KEYWORD,wrtn
   - DOMAIN-KEYWORD,perplexity
-  - DOMAIN-KEYWORD,perplexity.ai
-  - DOMAIN-KEYWORD,pplx.ai
+  - DOMAIN-SUFFIX,perplexity.ai
+  - DOMAIN-SUFFIX,pplx.ai
   - DOMAIN-SUFFIX,meta.ai
   - DOMAIN,apple-relay.apple.com
   - DOMAIN,apple-relay.cloudflare.com
