@@ -538,3 +538,7 @@ payload:
   - DOMAIN,img.xingyungept.org
   - DOMAIN,img.xingyungept.cn
   - DOMAIN-SUFFIX,qingwapt.org
+  - DOMAIN,pt.novahd.top
+  - DOMAIN-SUFFIX,cangbao.ge
+  - DOMAIN-SUFFIX,bilibili.download
+  - DOMAIN,pt.aling.de
