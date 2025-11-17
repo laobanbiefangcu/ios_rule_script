@@ -18,7 +18,12 @@ DOMAIN-SUFFIX,pplx.ai
 DOMAIN-SUFFIX,meta.ai
 DOMAIN,apple-relay.apple.com
 DOMAIN,apple-relay.cloudflare.com
+DOMAIN,apple-relay.fastly-edge.com
 DOMAIN,gspe1-ssl.ls.apple.com
+DOMAIN,guzzoni.apple.com
+DOMAIN,apps.mzstatic.com
+DOMAIN,gateway.icloud.com
+DOMAIN,cp4.cloudflare.com
 DOMAIN-SUFFIX,humb.apple.com
 DOMAIN,guzzoni.smoot.apple.com
 DOMAIN-SUFFIX,poe.com
