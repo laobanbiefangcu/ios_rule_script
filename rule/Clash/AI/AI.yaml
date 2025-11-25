@@ -76,3 +76,8 @@ payload:
   - DOMAIN-SUFFIX,x.ai
   - DOMAIN-KEYWORD,openai
   - DOMAIN-KEYWORD,alkalimakersuite-pa.clients6.google.com
+  - DOMAIN-SUFFIX,apple-relay.akamaized.net
+  - DOMAIN-SUFFIX,apple-relay.apple.com
+  - DOMAIN-SUFFIX,apple-relay.cloudflare.com
+  - DOMAIN-SUFFIX,apple-relay.fastly-edge.com
+  - DOMAIN-SUFFIX,apple-relay.mask.apple-dns.net
