@@ -237,11 +237,11 @@ https://raw.githubusercontent.com/laobanbiefangcu/ios_rule_script/master/rule/Su
 https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Lan/Lan.list, policy=全球直连, tag=Lan, enabled=true
 https://raw.githubusercontent.com/laobanbiefangcu/ios_rule_script/master/rule/Surge/Direct/Direct.list, policy=全球直连, tag=Direct, enabled=true
 https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/main/ruleset/ASN.China.list, policy=DIRECT, tag=ASN.China, enabled=true
+https://kelee.one/Tool/Loon/Lsr/REGION_SPLITTER.lsr, policy=DIRECT, tag=CN REGION, enabled=true
 
 [Rule]
 #- IP-CIDR,192.168.1.0/24,家庭组网,no-resolve  #IP-CIDR添加内网地址
 IP-CIDR,192.168.1.0/24,家庭组网,no-resolve
-GEOIP,CN,DIRECT
 FINAL,漏网之鱼
 
 [URL Rewrite]
