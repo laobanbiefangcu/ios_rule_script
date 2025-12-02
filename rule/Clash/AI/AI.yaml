@@ -81,3 +81,14 @@ payload:
   - DOMAIN-SUFFIX,apple-relay.cloudflare.com
   - DOMAIN-SUFFIX,apple-relay.fastly-edge.com
   - DOMAIN-SUFFIX,apple-relay.mask.apple-dns.net
+  - DOMAIN,oauth2.googleapis.com
+  - DOMAIN,serviceusage.googleapis.com
+  - DOMAIN,cloudaicompanion.googleapis.com
+  - DOMAIN,cloudcode-pa.googleapis.com
+  - DOMAIN,cloudresourcemanager.googleapis.com
+  - DOMAIN,people.googleapis.com
+  - DOMAIN,firebaselogging-pa.googleapis.com
+  - DOMAIN,feedback-pa.googleapis.com
+  - DOMAIN,apihub.googleapis.com
+  - DOMAIN,lh3.googleusercontent.com
+  - DOMAIN,lh5.googleusercontent.com
