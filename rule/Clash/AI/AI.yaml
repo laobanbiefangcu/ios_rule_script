@@ -93,3 +93,6 @@ payload:
   - DOMAIN,lh3.googleusercontent.com
   - DOMAIN,lh5.googleusercontent.com
   - DOMAIN,play.googleapis.com
+  - DOMAIN-KEYWORD,cloudcode
+  - DOMAIN,daily-cloudcode-pa.sandbox.googleapis.com
+  - IP-CIDR,5.28.195.0/24
