@@ -81,3 +81,5 @@ IP-CIDR,38.207.173.0/22,no-resolve
 DOMAIN,tls-desktop.dingtalk.com
 DOMAIN,api.cloudflare.com
 DOMAIN,fwa.lifesizecloud.com
+DOMAIN,connectivitycheck.gstatic.com
+DOMAIN,connectivitycheck.android.com
