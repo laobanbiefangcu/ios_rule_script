@@ -83,3 +83,4 @@ DOMAIN,api.cloudflare.com
 DOMAIN,fwa.lifesizecloud.com
 DOMAIN,connectivitycheck.gstatic.com
 DOMAIN,connectivitycheck.android.com
+DOMAIN-SUFFIX,gstatic.com,DIRECT
