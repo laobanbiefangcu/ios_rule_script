@@ -1,0 +1,21 @@
+#!name=Google搜索重定向(已修复旁路由认证问题)
+#!desc=将Google搜索、地图由 .cn 域名重定向至 .com，同时排除 generate_204 以避免 Android Captive Portal 检测误判。
+#!author=可莉🅥 + 优化 by ChatGPT
+#!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/Google.png
+#!category=BetaModule
+#!tag=去广告
+#!loon_version=3.2.4(787)
+#!homepage=https://hub.kelee.one
+#!date=2025-05-13 15:17:08
+
+[URL Rewrite]
+# === Android Captive Portal 修复 ===
+# 避免将 http://www.google.cn/generate_204 重写，从而确保返回 204，防止 Wi-Fi 误判为需认证
+^https?:\/\/www\.google\.cn\/generate_204 reject-204
+
+# === Google 域名重定向 ===
+^https?:\/\/(www\.)?(g|google)\.cn https://www.google.com 307
+^https?:\/\/(ditu|maps)\.google\.cn https://maps.google.com 307
+
+[MITM]
+hostname = %APPEND% www.google.cn, maps.google.cn
