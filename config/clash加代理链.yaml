@@ -94,14 +94,14 @@ proxy-groups:
 - {name: 全球直连,icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Direct.png,type: select, proxies: [DIRECT, REJECT]}
 - {name: 全球拦截,icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Reject.png,type: select, proxies: [DIRECT, REJECT]}
 - {name: 漏网之鱼,icon: https://raw.githubusercontent.com/laobanbiefangcu/Qure/master/IconSet/Color/Final.png,type: select, proxies: [节点选择,全球直连]}
-#筛选墙洞香港AC节点
-- {name: 🇭🇰墙洞香港节点1,icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Hong_Kong.png,type: fallback, url: 'http://www.gstatic.com/generate_204', interval: 300, use: [Dler], filter: '(?i)(?=.*(🇭🇰|香港|hong(\s|-)?kong|\bHK\b))(?=.*\bAC\b)', hidden: true}
+#筛选墙洞香港AC节点，下面的策略组已设置隐藏
+- {name: 🇭🇰墙洞香港节点1,icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Hong_Kong.png,type: fallback, url: 'http://www.gstatic.com/generate_204', interval: 300, use: [机场], filter: '(?i)(?=.*(🇭🇰|香港|hong(\s|-)?kong|\bHK\b))(?=.*\bAC\b)', hidden: true}
 #筛选墙洞香港Ultra节点
-- {name: 🇭🇰墙洞香港节点2,icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Hong_Kong.png,type: fallback, url: 'http://www.gstatic.com/generate_204', interval: 300, use: [Dler], filter: '(?i)(?=.*(🇭🇰|香港|hong(\s|-)?kong|\bHK\b))(?=.*\bultra\b)', hidden: true}
+- {name: 🇭🇰墙洞香港节点2,icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Hong_Kong.png,type: fallback, url: 'http://www.gstatic.com/generate_204', interval: 300, use: [机场], filter: '(?i)(?=.*(🇭🇰|香港|hong(\s|-)?kong|\bHK\b))(?=.*\bultra\b)', hidden: true}
 #筛选墙洞日本Max节点
-- {name: 🇯🇵墙洞日本节点1,icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Japan.png,type: fallback, url: 'http://www.gstatic.com/generate_204', interval: 300, use: [Dler], filter: '(?i)(?=.*(🇯🇵|日本|japan|\bJP\b))(?=.*\bmax\b)', hidden: true}
+- {name: 🇯🇵墙洞日本节点1,icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Japan.png,type: fallback, url: 'http://www.gstatic.com/generate_204', interval: 300, use: [机场], filter: '(?i)(?=.*(🇯🇵|日本|japan|\bJP\b))(?=.*\bmax\b)', hidden: true}
 #筛选墙洞日本Plus节点
-- {name: 🇯🇵墙洞日本节点2,icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Japan.png,type: fallback, url: 'http://www.gstatic.com/generate_204', interval: 300, use: [Dler], filter: '(?i)(?=.*(🇯🇵|日本|japan|\bJP\b))(?=.*\bplus\b)', hidden: true}
+- {name: 🇯🇵墙洞日本节点2,icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Japan.png,type: fallback, url: 'http://www.gstatic.com/generate_204', interval: 300, use: [机场], filter: '(?i)(?=.*(🇯🇵|日本|japan|\bJP\b))(?=.*\bplus\b)', hidden: true}
 
 
 rule-providers:
