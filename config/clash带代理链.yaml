@@ -1,0 +1,374 @@
+#!MANAGED-CONFIG 订阅链接
+mixed-port: 7890
+allow-lan: true
+mode: Rule
+log-level: info
+ipv6: true
+external-controller: :9090
+http:
+  force-http-engine:
+    - '*:80'
+    - '*:4480' # BiliBili CDN
+    - '*:9102' # BiliBili CDN
+mitm:
+    - g.cn
+    - '*.google.cn'
+    - weather-data.apple.com # 默认只对 443 端口开启
+    - weather-data.apple.com:* # 使用通配符对所有端口开启
+    - '*.weather-data.apple.com' # 域名中也可以使用通配符
+    - '-exclude.weather-data.apple.com' # 用-前缀排除域名
+url-rewrite:
+    - ^http://g\.cn http://www.google.com header # 重写请求头的域名
+    - ^https?://www\.google\.cn https://www.google.com 302 # 直接返回一个 302 重定向的响应
+    - ^https?://ad\.example - reject # 拒绝请求
+cron:
+  # 定时执行 JavaScript 脚本
+  script:
+    - name: weather-us-aqi # 引用 script-providers 中的脚本
+      cron: '* * * * *' # cron 表达式，可以在 https://crontab.guru/ 获取更多介绍
+      timeout: 10 # script timeout in second (optional)
+      argument: '' # script argument (optional)
+      debug: false # 开发模式，每次执行前会从 provider 加载最新脚本
+script-providers:
+  weather-us-aqi:
+    url: https://raw.githubusercontent.com/STASH-NETWORKS-LIMITED/stash-example/main/script/iOS15_Weather_AQI_Standard.js
+    interval: 86400
+script:
+  shortcuts:
+    quic: network == 'udp' and (dst_port == 443 or dst_port == 4483 or dst_port == 9305)
+hosts:
+  '*.clash.dev': 127.0.0.1
+  '.dev': 127.0.0.1
+  'alpha.clash.dev': '::1'
+  'hdbits.org': '179.43.168.158'
+  'tracker.hdbits.org': '179.43.168.158'
+  'i.hdbits.org': '179.43.168.158'
+  't.hdbits.org': '179.43.168.158'
+  'img.hdbits.org': '179.43.168.158'
+dns:
+  enable: true
+  listen: 0.0.0.0:53
+  ipv6: true
+  default-nameserver: [119.29.29.29,182.254.116.116,223.5.5.5, 223.6.6.6]
+  nameserver: [https://dns.alidns.com/dns-query, https://doh.pub/dns-query]
+  nameserver-policy:
+    android-appboot.netflix.com: 1.1.1.1
+    android.prod.cloud.netflix.com: 1.1.1.1
+    appboot.netflix.com: 1.1.1.1
+    ios.prod.cloud.netflix.com: 1.1.1.1
+# fallback:
+#  - https://1.1.1.1/dns-query
+#  - https://dns.google/dns-query
+# fallback-filter:
+#   geoip: true
+#   geoip-code: CN
+#   ipcidr:
+#     - 240.0.0.0/4
+#     - 0.0.0.0/32
+proxy-providers:
+  机场: { type: http, udp: true, interval: 3600, url: '订阅链接', path: ./Profiles/Proxies/机场.yaml, benchmark-timeout: 3600, benchmark-url: 'http://www.gstatic.com/generate_204'}
+proxies:
+#添加ss配置，mihomo内核支持dialer-proxy，stash不支持dialer-proxy
+- {name: 🇭🇰香港节点01,type: ss,server: IP,port: 端口,cipher: 协议,password: 密码,udp: true,tfo: true,fast-open: true,dialer-proxy=🇭🇰墙洞香港节点1}
+- {name: 🇭🇰香港节点02,type: ss,server: IP,port: 端口,cipher: 协议,password: 密码,udp: true,tfo: true,fast-open: true,dialer-proxy=🇭🇰墙洞香港节点2}
+- {name: 🇯🇵日本节点01,,type: ss,server: IP,port: 端口,cipher: 协议,password: 密码,udp: true,tfo: true,fast-open: true,dialer-proxy=🇯🇵墙洞日本节点1}
+- {name: 🇯🇵日本节点02,,type: ss,server: IP,port: 端口,cipher: 协议,password: 密码,udp: true,tfo: true,fast-open: true,dialer-proxy=🇯🇵墙洞日本节点2}
+proxy-groups:
+#节点选择加了代理链名字，后面的策略组自己加
+- {name: 节点选择,icon: https://raw.githubusercontent.com/laobanbiefangcu/Qure/master/IconSet/Color/Proxy.png,type: select, proxies: [自动选择,🇭🇰香港节点01,🇭🇰香港节点02,🇯🇵日本节点01,🇯🇵日本节点02],use: [机场]}
+- {name: 自动选择,icon: https://raw.githubusercontent.com/laobanbiefangcu/icon/main/Policy-Filter/Auto.png, type: url-test, use: [机场],url: 'http://www.gstatic.com/generate_204', interval: 300,tolerance: 50}
+- {name: PT下载,icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Download.png, type: select, proxies: [节点选择,全球直连],use: [机场]}
+- {name: Usenet,icon: https://raw.githubusercontent.com/laobanbiefangcu/Qure/master/IconSet/Color/Qure.png, type: select, proxies: [节点选择,全球直连],use: [机场]}
+- {name: 电报信息,icon: https://raw.githubusercontent.com/laobanbiefangcu/icon/main/Policy-Filter/Telegram.png, type: select, proxies: [节点选择],use: [机场]}
+- {name: 无损音乐,icon: https://raw.githubusercontent.com/laobanbiefangcu/icon/main/Policy-Filter/Spotify.png,type: select, proxies: [节点选择],use: [机场]}
+- {name: 人工智能,icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/ChatGPT.png, type: select, proxies: [节点选择],use: [机场]}
+- {name: 油管视频,icon: https://raw.githubusercontent.com/laobanbiefangcu/icon/main/Policy-Filter/Youtube.png,type: select, proxies: [节点选择],use: [机场]}
+- {name: 环球影视,icon: https://raw.githubusercontent.com/laobanbiefangcu/icon/main/Policy-Filter/Netflix.png,type: select, proxies: [节点选择],use: [机场]}
+- {name: 国外抖音,icon: https://raw.githubusercontent.com/laobanbiefangcu/icon/main/Policy-Filter/Tiktok.png,type: select, proxies: [节点选择],use: [机场]}
+- {name: 谷歌服务,icon: https://raw.githubusercontent.com/laobanbiefangcu/icon/main/Policy-Filter/Google.png,type: select, proxies: [节点选择],use: [机场]}
+- {name: 贝宝信用,icon: https://raw.githubusercontent.com/laobanbiefangcu/icon/main/Policy-Filter/Paypal.png,type: select, proxies: [节点选择],use: [机场]}
+- {name: 测速软件,icon: https://raw.githubusercontent.com/laobanbiefangcu/icon/main/Policy-Filter/Speedtest.png,type: select, proxies: [全球直连,节点选择],use: [机场]}
+- {name: 苹果服务,icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Apple.png,type: select, proxies: [全球直连,节点选择],use: [机场]}
+- {name: 微软服务,icon: https://raw.githubusercontent.com/laobanbiefangcu/icon/main/Policy-Filter/Microsoft.png,type: select, proxies: [全球直连,节点选择],use: [机场]}
+- {name: 数字游戏,icon: https://raw.githubusercontent.com/laobanbiefangcu/icon/main/Policy-Filter/Game.png,type: select, proxies: [全球直连,节点选择],use: [机场]}
+- {name: 全球直连,icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Direct.png,type: select, proxies: [DIRECT, REJECT]}
+- {name: 全球拦截,icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Reject.png,type: select, proxies: [DIRECT, REJECT]}
+- {name: 漏网之鱼,icon: https://raw.githubusercontent.com/laobanbiefangcu/Qure/master/IconSet/Color/Final.png,type: select, proxies: [节点选择,全球直连]}
+#筛选墙洞香港AC节点
+- {name: 🇭🇰墙洞香港节点1,icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Hong_Kong.png,type: fallback, url: 'http://www.gstatic.com/generate_204', interval: 300, use: [Dler], filter: '(?i)(?=.*(🇭🇰|香港|hong(\s|-)?kong|\bHK\b))(?=.*\bAC\b)', hidden: true}
+#筛选墙洞香港Ultra节点
+- {name: 🇭🇰墙洞香港节点2,icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Hong_Kong.png,type: fallback, url: 'http://www.gstatic.com/generate_204', interval: 300, use: [Dler], filter: '(?i)(?=.*(🇭🇰|香港|hong(\s|-)?kong|\bHK\b))(?=.*\bultra\b)', hidden: true}
+#筛选墙洞日本Max节点
+- {name: 🇯🇵墙洞日本节点1,icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Japan.png,type: fallback, url: 'http://www.gstatic.com/generate_204', interval: 300, use: [Dler], filter: '(?i)(?=.*(🇯🇵|日本|japan|\bJP\b))(?=.*\bmax\b)', hidden: true}
+#筛选墙洞日本Plus节点
+- {name: 🇯🇵墙洞日本节点2,icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Japan.png,type: fallback, url: 'http://www.gstatic.com/generate_204', interval: 300, use: [Dler], filter: '(?i)(?=.*(🇯🇵|日本|japan|\bJP\b))(?=.*\bplus\b)', hidden: true}
+
+
+rule-providers:
+    12306: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/12306/12306.yaml', path: ./Rules/12306.yaml }
+    ABC: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/ABC/ABC.yaml', path: ./Rules/ABC.yaml }
+    Adobe: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Adobe/Adobe.yaml', path: ./Rules/Adobe.yaml }
+    AI: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/laobanbiefangcu/ios_rule_script/master/rule/Clash/AI/AI.yaml', path: ./Rules/AI.yaml }
+    Alibaba_Domain: { type: http, behavior: domain, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Alibaba/Alibaba_Domain.yaml', path: ./Rules/Alibaba_Domain.yaml }
+    AliPay: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/AliPay/AliPay.yaml', path: ./Rules/AliPay.yaml }
+    Amazon: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Amazon/Amazon.yaml', path: ./Rules/Amazon.yaml }
+    AmazonPrimeVideo: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/AmazonPrimeVideo/AmazonPrimeVideo.yaml', path: ./Rules/AmazonPrimeVideo.yaml }
+    Anti-AD: { type: http, behavior: domain, interval: 86400, url: 'https://raw.githubusercontent.com/laobanbiefangcu/ios_rule_script/master/rule/Clash/Anti-AD/Anti-AD.yaml', path: ./Rules/Anti-AD.yaml }
+    Apple: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Apple/Apple.yaml', path: ./Rules/Apple.yaml }
+    Apple_Domain: { type: http, behavior: domain, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Apple/Apple_Domain.yaml', path: ./Rules/Apple_Domain.yaml }
+    AppleDaily: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/AppleDaily/AppleDaily.yaml', path: ./Rules/AppleDaily.yaml }
+    AppleDev: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/AppleDev/AppleDev.yaml', path: ./Rules/AppleDev.yaml }
+    AppleFirmware: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/AppleFirmware/AppleFirmware.yaml', path: ./Rules/AppleFirmware.yaml }
+    AppleHardware: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/AppleHardware/AppleHardware.yaml', path: ./Rules/AppleHardware.yaml }
+    AppleID: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/AppleID/AppleID.yaml', path: ./Rules/AppleID.yaml }
+    AppleMail: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/AppleMail/AppleMail.yaml', path: ./Rules/AppleMail.yaml }
+    AppleMedia: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/AppleMedia/AppleMedia.yaml', path: ./Rules/AppleMedia.yaml }
+    AppleMusic: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/AppleMusic/AppleMusic.yaml', path: ./Rules/AppleMusic.yaml }
+    AppleNews: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/AppleNews/AppleNews.yaml', path: ./Rules/AppleNews.yaml }
+    AppleProxy: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/AppleProxy/AppleProxy.yaml', path: ./Rules/AppleProxy.yaml }
+    AppleTV: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/AppleTV/AppleTV.yaml', path: ./Rules/AppleTV.yaml }
+    AppStore: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/AppStore/AppStore.yaml', path: ./Rules/AppStore.yaml }
+    ASN.China: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/main/ruleset/ASN.China.yaml', path: ./Rules/ASN.China.yaml }
+    Baidu: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Baidu/Baidu.yaml', path: ./Rules/Baidu.yaml }
+    BaiDuTieBa: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/BaiDuTieBa/BaiDuTieBa.yaml', path: ./Rules/BaiDuTieBa.yaml }
+    Beats: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Beats/Beats.yaml', path: ./Rules/Beats.yaml }
+    Bilibili: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/BiliBili/BiliBili.yaml', path: ./Rules/BiliBili.yaml }
+    Bing: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Bing/Bing.yaml', path: ./Rules/Bing.yaml }
+    Blizzard: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Blizzard/Blizzard.yaml', path: ./Rules/Blizzard.yaml }
+    ByteDance: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/ByteDance/ByteDance.yaml', path: ./Rules/ByteDance.yaml }
+    CCTV: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/CCTV/CCTV.yaml', path: ./Rules/CCTV.yaml }
+    ChinaMedia: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/ChinaMedia/ChinaMedia.yaml', path: ./Rules/ChinaMedia.yaml }
+    Chromecast: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Chromecast/Chromecast.yaml', path: ./Rules/chromecast.yaml }
+    Claude: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Claude/Claude.yaml', path: ./Rules/Claude.yaml }
+    Copilot: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Copilot/Copilot.yaml', path: ./Rules/Copilot.yaml }
+    DingTalk: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/DingTalk/DingTalk.yaml', path: ./Rules/DingTalk.yaml }
+    Direct: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/laobanbiefangcu/ios_rule_script/master/rule/Clash/Direct/Direct.yaml', path: ./Rules/Direct.yaml }
+    Discord: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Discord/Discord.yaml', path: ./Rules/Discord.yaml }
+    Disney: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Disney/Disney.yaml', path: ./Rules/Disney.yaml }
+    Docker: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Docker/Docker.yaml', path: ./Rules/Docker.yaml }
+    DouBan: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/DouBan/DouBan.yaml', path: ./Rules/DouBan.yaml }
+    DouYin: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/laobanbiefangcu/ios_rule_script/master/rule/Clash/DouYin/DouYin.yaml', path: ./Rules/DouYin.yaml }
+    EA: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/EA/EA.yaml', path: ./Rules/EA.yaml }
+    Epic: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Epic/Epic.yaml', path: ./Rules/Epic.yaml }
+    Facebook: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Facebook/Facebook.yaml', path: ./Rules/Facebook.yaml }
+    FitnessPlus: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/FitnessPlus/FitnessPlus.yaml', path: ./Rules/FitnessPlus.yaml }
+    Game: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Game/Game.yaml', path: ./Rules/Game.yaml }
+    GameDownload: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Game/GameDownload/GameDownload.yaml', path: ./Rules/GameDownload.yaml }
+    GameDownloadCN: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Game/GameDownloadCN/GameDownloadCN.yaml', path: ./Rules/GameDownloadCN.yaml }
+    GaoDe: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/GaoDe/GaoDe.yaml', path: ./Rules/GaoDe.yaml }
+    Gemini: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Gemini/Gemini.yaml', path: ./Rules/Gemini.yaml }
+    GitHub: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/GitHub/GitHub.yaml', path: ./Rules/GitHub.yaml }
+    Google: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Google/Google.yaml', path: ./Rules/Google.yaml }
+    GoogleDrive: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/GoogleDrive/GoogleDrive.yaml', path: ./Rules/GoogleDrive.yaml }
+    GoogleEarth: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/GoogleEarth/GoogleEarth.yaml', path: ./Rules/GoogleEarth.yaml }
+    GoogleFCM: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/GoogleFCM/GoogleFCM.yaml', path: ./Rules/GoogleFCM.yaml }
+    GoogleVoice: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/GoogleVoice/GoogleVoice.yaml', path: ./Rules/GoogleVoice.yaml }
+    HoYoverse: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/HoYoverse/HoYoverse.yaml', path: ./Rules/HoYoverse.yaml }
+    Hulu: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Hulu/Hulu.yaml', path: ./Rules/Hulu.yaml }
+    HuluJP: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/HuluJP/HuluJP.yaml', path: ./Rules/HuluJP.yaml }
+    HuluUSA: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/HuluUSA/HuluUSA.yaml', path: ./Rules/HuluUSA.yaml }
+    Hupu: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Hupu/Hupu.yaml', path: ./Rules/Hupu.yaml }
+    iCloud: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/iCloud/iCloud.yaml', path: ./Rules/iCloud.yaml }
+    IMDB: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/IMDB/IMDB.yaml', path: ./Rules/IMDB.yaml }
+    Instagram: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Instagram/Instagram.yaml', path: ./Rules/Instagram.yaml }
+    Intel: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Intel/Intel.yaml', path: ./Rules/Intel.yaml }
+    iQIYI: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/iQIYI/iQIYI.yaml', path: ./Rules/iQIYI.yaml }
+    JingDong: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/JingDong/JingDong.yaml', path: ./Rules/JingDong.yaml }
+    KugouKuwo: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/KugouKuwo/KugouKuwo.yaml', path: ./Rules/KugouKuwo.yaml }
+    Lan: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Lan/Lan.yaml', path: ./Rules/Lan.yaml }
+    LastFM: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/LastFM/LastFM.yaml', path: ./Rules/LastFM.yaml }
+    Max: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/laobanbiefangcu/ios_rule_script/master/rule/Clash/Max/Max.yaml', path: ./Rules/Max.yaml }
+    MeiTuan: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/MeiTuan/MeiTuan.yaml', path: ./Rules/MeiTuan.yaml }
+    Microsoft: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Microsoft/Microsoft.yaml', path: ./Rules/Microsoft.yaml }
+    MicrosoftEdge: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/MicrosoftEdge/MicrosoftEdge.yaml', path: ./Rules/MicrosoftEdge.yaml }
+    MovieTV: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/laobanbiefangcu/ios_rule_script/master/rule/Clash/MovieTV/MovieTV.yaml', path: ./Rules/MovieTV.yaml }
+    NetEase: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/NetEase/NetEase.yaml', path: ./Rules/NetEase.yaml }
+    NetEaseMusic: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/NetEaseMusic/NetEaseMusic.yaml', path: ./Rules/NetEaseMusic.yaml }
+    Netflix: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Netflix/Netflix.yaml', path: ./Rules/Netflix.yaml }
+    NGA: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/NGA/NGA.yaml', path: ./Rules/NGA.yaml }
+    OneDrive: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/OneDrive/OneDrive.yaml', path: ./Rules/OneDrive.yaml }
+    OpenAI: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/laobanbiefangcu/ios_rule_script/master/rule/Clash/OpenAI/OpenAI.yaml', path: ./Rules/OpenAI.yaml }
+    Pandora: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Pandora/Pandora.yaml', path: ./Rules/Pandora.yaml }
+    PayPal: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/PayPal/PayPal.yaml', path: ./Rules/PayPal.yaml }
+    Pinduoduo: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Pinduoduo/Pinduoduo.yaml', path: ./Rules/Pinduoduo.yaml }
+    PlayStation: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/PlayStation/PlayStation.yaml', path: ./Rules/PlayStation.yaml }
+    Porn: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/laobanbiefangcu/ios_rule_script/master/rule/Clash/Porn/Porn.yaml', path: ./Rules/Porn.yaml }
+    PrivateTracker: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/laobanbiefangcu/ios_rule_script/master/rule/Clash/PrivateTracker/PrivateTracker.yaml', path: ./Rules/PrivateTracker.yaml }
+    Proxy: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/laobanbiefangcu/ios_rule_script/master/rule/Clash/Proxy/Proxy.yaml', path: ./Rules/Proxy.yaml }
+    Qobuz: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Qobuz/Qobuz.yaml', path: ./Rules/Qobuz.yaml }
+    Rarbg: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Rarbg/Rarbg.yaml', path: ./Rules/Rarbg.yaml }
+    Reddit: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Reddit/Reddit.yaml', path: ./Rules/Reddit.yaml }
+    Reject: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/laobanbiefangcu/ios_rule_script/master/rule/Clash/Reject/Reject.yaml', path: ./Rules/Reject.yaml }
+    Rockstar: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Rockstar/Rockstar.yaml', path: ./Rules/Rockstar.yaml }
+    Scholar: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Scholar/Scholar.yaml', path: ./Rules/Scholar.yaml }
+    Sina: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Sina/Sina.yaml', path: ./Rules/Sina.yaml }
+    Siri: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Siri/Siri.yaml', path: ./Rules/Siri.yaml }
+    SMZDM: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/SMZDM/SMZDM.yaml', path: ./Rules/SMZDM.yaml }
+    Sony: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Sony/Sony.yaml', path: ./Rules/Sony.yaml }
+    SoundCloud: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/SoundCloud/SoundCloud.yaml', path: ./Rules/SoundCloud.yaml }
+    Speedtest: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Speedtest/Speedtest.yaml', path: ./Rules/Speedtest.yaml }
+    Spotify: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Spotify/Spotify.yaml', path: ./Rules/Spotify.yaml }
+    Steam: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/laobanbiefangcu/ios_rule_script/master/rule/Clash/Steam/Steam.yaml', path: ./Rules/Steam.yaml }
+    SteamCN: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/laobanbiefangcu/ios_rule_script/master/rule/Clash/SteamCN/SteamCN.yaml', path: ./Rules/SteamCN.yaml }
+    Supercell: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Supercell/Supercell.yaml', path: ./Rules/Supercell.yaml }
+    SystemOTA: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/SystemOTA/SystemOTA.yaml', path: ./Rules/SystemOTA.yaml }
+    Teams: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Teams/Teams.yaml', path: ./Rules/Teams.yaml }
+    Telegram: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Telegram/Telegram.yaml', path: ./Rules/Telegram.yaml }
+    Tencent: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Tencent/Tencent.yaml', path: ./Rules/Tencent.yaml }
+    TencentLoLMobile: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Game/TencentLoLMobile/TencentLoLMobile.yaml', path: ./Rules/TencentLoLMobile.yaml }
+    TencentVideo: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/TencentVideo/TencentVideo.yaml', path: ./Rules/TencentVideo.yaml }
+    TestFlight: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/TestFlight/TestFlight.yaml', path: ./Rules/TestFlight.yaml }
+    TIDAL: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/TIDAL/TIDAL.yaml', path: ./Rules/TIDAL.yaml }
+    TikTok: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/TikTok/TikTok.yaml', path: ./Rules/TikTok.yaml }
+    Tmdb: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Tmdb/Tmdb.yaml', path: ./Rules/Tmdb.yaml }
+    TVB: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/TVB/TVB.yaml', path: ./Rules/TVB.yaml }
+    Twitter: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Twitter/Twitter.yaml', path: ./Rules/Twitter.yaml }
+    Ubuntu: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Ubuntu/Ubuntu.yaml', path: ./Rules/Ubuntu.yaml }
+    Usenet: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/laobanbiefangcu/ios_rule_script/master/rule/Clash/Usenet/Usenet.yaml', path: ./Rules/Usenet.yaml }
+    WeChat: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/WeChat/WeChat.yaml', path: ./Rules/WeChat.yaml }
+    Weibo: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Weibo/Weibo.yaml', path: ./Rules/Weibo.yaml }
+    Whatsapp: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Whatsapp/Whatsapp.yaml', path: ./Rules/Whatsapp.yaml }
+    Wikimedia: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Wikimedia/Wikimedia.yaml', path: ./Rules/Wikimedia.yaml }
+    WildRift: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/WildRift/WildRift.yaml', path: ./Rules/WildRift.yaml }
+    Xbox: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Xbox/Xbox.yaml', path: ./Rules/Xbox.yaml }
+    XiaoMi: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/XiaoMi/XiaoMi.yaml', path: ./Rules/XiaoMi.yaml }
+    Youku: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Youku/Youku.yaml', path: ./Rules/Youku.yaml }
+    YouTube: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/YouTube/YouTube.yaml', path: ./Rules/YouTube.yaml }
+    YouTubeMusic: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/YouTubeMusic/YouTubeMusic.yaml', path: ./Rules/YouTubeMusic.yaml }
+rules:
+ - IP-CIDR,192.168.1.0/24,家庭组网,no-resolve
+ - RULE-SET,Reject,REJECT-DROP
+ #- RULE-SET,Anti-AD,REJECT-DROP
+ - RULE-SET,DouYin,DIRECT
+ - RULE-SET,Proxy,节点选择
+ - RULE-SET,Adobe,全球拦截
+ - RULE-SET,Docker,节点选择
+ - RULE-SET,Discord,节点选择
+ - RULE-SET,OpenAI,人工智能
+ - RULE-SET,Claude,人工智能
+ - RULE-SET,Copilot,人工智能
+ - RULE-SET,Gemini,人工智能
+ - RULE-SET,AI,人工智能
+ - RULE-SET,MovieTV,环球影视
+ - RULE-SET,AppleTV,环球影视
+ - RULE-SET,Netflix,环球影视
+ - RULE-SET,Tmdb,环球影视
+ - RULE-SET,IMDB,环球影视
+ - RULE-SET,Disney,环球影视
+ - RULE-SET,AmazonPrimeVideo,环球影视
+ - RULE-SET,Amazon,环球影视
+ - RULE-SET,Hulu,环球影视
+ - RULE-SET,Max,环球影视
+ - RULE-SET,TVB,环球影视
+ - RULE-SET,HuluJP,环球影视
+ - RULE-SET,HuluUSA,环球影视
+ - RULE-SET,Spotify,无损音乐
+ - RULE-SET,TIDAL,无损音乐
+ - RULE-SET,Telegram,电报信息
+ - RULE-SET,GitHub,节点选择
+ - RULE-SET,GoogleDrive,谷歌服务
+ - RULE-SET,GoogleEarth,谷歌服务
+ - RULE-SET,YouTube,油管视频
+ - RULE-SET,Google,谷歌服务
+ - RULE-SET,GoogleFCM,谷歌服务
+ - RULE-SET,GoogleVoice,谷歌服务
+ - RULE-SET,Chromecast,谷歌服务
+ - RULE-SET,Twitter,节点选择
+ - RULE-SET,Instagram,节点选择
+ - RULE-SET,Facebook,节点选择
+ - RULE-SET,Rarbg,节点选择
+ - RULE-SET,LastFM,节点选择
+ - RULE-SET,TikTok,国外抖音
+ - RULE-SET,PayPal,贝宝信用
+ - RULE-SET,Apple,苹果服务
+ - RULE-SET,AppStore,苹果服务
+ - RULE-SET,iCloud,苹果服务
+ - RULE-SET,SystemOTA,苹果服务
+ - RULE-SET,AppleID,苹果服务
+ - RULE-SET,Apple_Domain,苹果服务
+ - RULE-SET,TestFlight,苹果服务
+ - RULE-SET,AppleMail,苹果服务
+ - RULE-SET,AppleMusic,苹果服务
+ - RULE-SET,AppleNews,苹果服务
+ - RULE-SET,AppleFirmware,苹果服务
+ - RULE-SET,AppleHardware,苹果服务
+ - RULE-SET,AppleDaily,苹果服务
+ - RULE-SET,AppleDev,苹果服务
+ - RULE-SET,AppleMedia,苹果服务
+ - RULE-SET,FitnessPlus,苹果服务
+ - RULE-SET,Siri,苹果服务
+ - RULE-SET,AppleProxy,苹果服务
+ - RULE-SET,Beats,苹果服务
+ - RULE-SET,Bing,微软服务
+ - RULE-SET,Microsoft,微软服务
+ - RULE-SET,Teams,微软服务
+ - RULE-SET,MicrosoftEdge,微软服务
+ - RULE-SET,OneDrive,微软服务
+ - RULE-SET,Scholar,节点选择
+ - RULE-SET,YouTubeMusic,油管视频
+ - RULE-SET,Intel,节点选择
+ - RULE-SET,Wikimedia,节点选择
+ - RULE-SET,Qobuz,无损音乐
+ - RULE-SET,Pandora,无损音乐
+ - RULE-SET,SoundCloud,无损音乐
+ - RULE-SET,Porn,节点选择
+ - RULE-SET,Whatsapp,节点选择
+ - RULE-SET,Ubuntu,节点选择
+ - RULE-SET,Speedtest,测速软件
+ - RULE-SET,Reddit,节点选择
+ - RULE-SET,Game,数字游戏
+ - RULE-SET,Blizzard,数字游戏
+ - RULE-SET,Steam,数字游戏
+ - RULE-SET,Rockstar,数字游戏
+ - RULE-SET,PlayStation,数字游戏
+ - RULE-SET,Epic,数字游戏
+ - RULE-SET,SteamCN,数字游戏
+ - RULE-SET,WildRift,数字游戏
+ - RULE-SET,Supercell,数字游戏
+ - RULE-SET,EA,数字游戏
+ - RULE-SET,Xbox,数字游戏
+ - RULE-SET,Sony,数字游戏
+ - RULE-SET,NGA,数字游戏
+ - RULE-SET,HoYoverse,数字游戏
+ - RULE-SET,GameDownload,数字游戏
+ - RULE-SET,TencentLoLMobile,数字游戏
+ - RULE-SET,GameDownloadCN,数字游戏
+ - RULE-SET,BaiDuTieBa,全球直连
+ - RULE-SET,NetEaseMusic,全球直连
+ - RULE-SET,GaoDe,全球直连
+ - RULE-SET,JingDong,全球直连
+ - RULE-SET,KugouKuwo,全球直连
+ - RULE-SET,MeiTuan,全球直连
+ - RULE-SET,SMZDM,全球直连
+ - RULE-SET,Tencent,全球直连
+ - RULE-SET,WeChat,全球直连
+ - RULE-SET,Alibaba_Domain,全球直连
+ - RULE-SET,Pinduoduo,全球直连
+ - RULE-SET,CCTV,全球直连
+ - RULE-SET,ChinaMedia,全球直连
+ - RULE-SET,Weibo,全球直连
+ - RULE-SET,NetEase,全球直连
+ - RULE-SET,12306,全球直连
+ - RULE-SET,Sina,全球直连
+ - RULE-SET,DouBan,全球直连
+ - RULE-SET,Hupu,全球直连
+ - RULE-SET,Bilibili,全球直连
+ - RULE-SET,AliPay,全球直连
+ - RULE-SET,ABC,全球直连
+ - RULE-SET,Baidu,全球直连
+ - RULE-SET,DingTalk,全球直连
+ - RULE-SET,TencentVideo,全球直连
+ - RULE-SET,Youku,全球直连
+ - RULE-SET,iQIYI,全球直连
+ - RULE-SET,XiaoMi,全球直连
+ - RULE-SET,ByteDance,全球直连
+ - RULE-SET,Usenet,Usenet
+ #- SRC-IP-CIDR,192.168.1.131/32,DIRECT
+ #- SRC-IP-CIDR,192.168.1.132/32,DIRECT
+ #- SRC-IP-CIDR,192.168.1.189/32,DIRECT
+ - RULE-SET,PrivateTracker,PT下载
+ - RULE-SET,Lan,全球直连
+ - RULE-SET,Direct,全球直连
+ - RULE-SET,ASN.China,DIRECT
+ - GEOIP,CN,DIRECT
+ - MATCH,漏网之鱼
