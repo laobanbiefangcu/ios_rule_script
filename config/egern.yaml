@@ -1,0 +1,203 @@
+#!MANAGED-CONFIG 订阅链接
+ipv6: false
+http_port: 3080
+socks_port: 3090
+allow_external_connections: false
+vif_only: true
+hijack_dns:
+- '*:53'
+geoip_db_url: https://raw.githubusercontent.com/Loyalsoldier/geoip/release/Country.mmdb
+asn_db_url: https://raw.githubusercontent.com/Loyalsoldier/geoip/release/GeoLite2-ASN.mmdb
+proxy_latency_test_url: http://1.1.1.1/generate_204
+direct_latency_test_url: http://connectivitycheck.platform.hicloud.com/generate_204
+compat_route: false
+include_all_networks: false
+include_apns: false
+include_cellular_services: false
+include_local_networks: false
+dns:
+  bootstrap:
+  - system
+  upstreams:
+    google:
+    - https://8.8.8.8
+    - https://8.8.4.4
+  forward:
+  - wildcard:
+      match: '*.cn'
+      value: system
+  - proxy_rule_set:
+      match: https://github.com/ACL4SSR/ACL4SSR/raw/master/Clash/ChinaDomain.list
+      value: system
+  - regex:
+      match: ^ad\..*|^ads\..*
+      value: quic://dns.adguard-dns.com
+  - wildcard:
+      match: '*'
+      value: google
+  hosts:
+    example.com:
+    - www.example.com
+    localhost:
+    - 127.0.0.1
+  block_ips:
+  - 1.2.3.4
+  - 4.3.2.1/32
+  public_ip_lookup_url: https://ifconfig.me/ip
+
+policy_groups:
+- { select: { name: 节点选择, policies: [自动选择, 机场], flatten: true,  icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Download.png, hidden: false } }
+- { fallback: { name: 自动选择, policies: [机场], flatten: true,  tolerance: 0, icon: https://raw.githubusercontent.com/laobanbiefangcu/icon/main/Policy-Filter/Auto.png, hidden: false } }
+- { select: { name: PT下载, policies: [DIRECT, 机场], flatten: true, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Download.png, hidden: false } }
+- { select: { name: Usenet, policies: [DIRECT, 节点选择, 机场], flatten: true, icon: https://raw.githubusercontent.com/laobanbiefangcu/Qure/master/IconSet/Color/Qure.png, hidden: false } }
+- { select: { name: 电报信息, policies: [自动选择, 节点选择, 机场], flatten: true, icon: https://raw.githubusercontent.com/laobanbiefangcu/icon/main/Policy-Filter/Telegram.png, hidden: false } }
+- { select: { name: 无损音乐, policies: [自动选择, 节点选择, 机场], flatten: true, icon: https://raw.githubusercontent.com/laobanbiefangcu/icon/main/Policy-Filter/Spotify.png, hidden: false } }
+- { select: { name: 人工智能, policies: [自动选择, 机场], flatten: true, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/ChatGPT.png, hidden: false } }
+- { select: { name: 油管视频, policies: [自动选择, 节点选择, 机场], flatten: true, icon: https://raw.githubusercontent.com/laobanbiefangcu/icon/main/Policy-Filter/Youtube.png, hidden: false } }
+- { select: { name: 环球影视, policies: [自动选择, 节点选择, 机场], flatten: true, icon: https://raw.githubusercontent.com/laobanbiefangcu/icon/main/Policy-Filter/Netflix.png, hidden: false } }
+- { select: { name: 国外抖音, policies: [自动选择, 节点选择, 机场], flatten: true, icon: https://raw.githubusercontent.com/laobanbiefangcu/icon/main/Policy-Filter/Tiktok.png, hidden: false } }
+- { select: { name: 谷歌服务, policies: [节点选择, 自动选择, 机场], flatten: false, icon: https://raw.githubusercontent.com/laobanbiefangcu/icon/main/Policy-Filter/Google.png, hidden: false } }
+- { select: { name: 贝宝信用, policies: [自动选择, 节点选择, 机场], flatten: true, icon: https://raw.githubusercontent.com/laobanbiefangcu/icon/main/Policy-Filter/Paypal.png, hidden: false } }
+- { select: { name: 测速软件, policies: [DIRECT, 节点选择, 自动选择, 机场], icon: https://raw.githubusercontent.com/laobanbiefangcu/icon/main/Policy-Filter/Speedtest.png } }
+- { select: { name: 苹果服务, policies: [自动选择, 节点选择, 机场], flatten: true, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Apple.png, hidden: false } }
+- { select: { name: 微软服务, policies: [自动选择, 节点选择, 机场], flatten: true, icon: https://raw.githubusercontent.com/laobanbiefangcu/icon/main/Policy-Filter/Microsoft.png, hidden: false } }
+- { select: { name: 数字游戏, policies: [DIRECT, 节点选择, 自动选择], flatten: false, icon: https://raw.githubusercontent.com/laobanbiefangcu/icon/main/Policy-Filter/Game.png, hidden: false } }
+- { select: { name: 全球直连, policies: [DIRECT, REJECT], icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Direct.png } }
+- { select: { name: 全球拦截, policies: [REJECT, DIRECT], icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Reject.png } }
+- { select: { name: 漏网之鱼, policies: [节点选择, DIRECT, 自动选择], icon: https://raw.githubusercontent.com/laobanbiefangcu/Qure/master/IconSet/Color/Final.png } }
+#机场订阅，策略组默认隐藏
+- { external: { name: 机场, type: select, urls: [添加订阅], update_interval: 86400, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Proxy.png, hidden: true } }
+
+rules:
+- { rule_set: { match: https://raw.githubusercontent.com/laobanbiefangcu/ios_rule_script/master/rule/Surge/Reject/Reject.list, policy: REJECT } }
+- { rule_set: { match: https://raw.githubusercontent.com/laobanbiefangcu/ios_rule_script/master/rule/Surge/DouYin/DouYin.list, policy: DIRECT } }
+- { rule_set: { match: https://raw.githubusercontent.com/laobanbiefangcu/ios_rule_script/master/rule/Surge/Proxy/Proxy.list, policy: 节点选择 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/GitHub/GitHub.list, policy: 节点选择 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Discord/Discord.list, policy: 节点选择 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Docker/Docker.list, policy: 节点选择 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Rarbg/Rarbg.list, policy: 节点选择 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/LastFM/LastFM.list, policy: 节点选择 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/TikTok/TikTok.list, policy: 国外抖音 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/YouTubeMusic/YouTubeMusic.list, policy: 油管视频 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/YouTube/YouTube.list, policy: 油管视频 } }
+- { rule_set: { match: https://raw.githubusercontent.com/laobanbiefangcu/ios_rule_script/master/rule/Surge/OpenAI/OpenAI.list, policy: 人工智能 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Claude/Claude.list, policy: 人工智能 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Copilot/Copilot.list, policy: 人工智能 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Gemini/Gemini.list, policy: 人工智能 } }
+- { rule_set: { match: https://raw.githubusercontent.com/laobanbiefangcu/ios_rule_script/master/rule/Surge/AI/AI.list, policy: 人工智能 } }
+- { rule_set: { match: https://raw.githubusercontent.com/laobanbiefangcu/ios_rule_script/master/rule/Surge/MovieTV/MovieTV.list, policy: 环球影视 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Netflix/Netflix.list, policy: 环球影视 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Disney/Disney.list, policy: 环球影视 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/IMDB/IMDB.list, policy: 环球影视 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Tmdb/Tmdb.list, policy: 环球影视 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Bahamut/Bahamut.list, policy: 环球影视 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/AppleTV/AppleTV.list, policy: 环球影视 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/BBC/BBC.list, policy: 环球影视 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/DAZN/DAZN.list, policy: 环球影视 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/DiscoveryPlus/DiscoveryPlus.list, policy: 环球影视 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/TVB/TVB.list, policy: 环球影视 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/EncoreTVB/EncoreTVB.list, policy: 环球影视 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/FOXNOW/FOXNOW.list, policy: 环球影视 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/FOXPlus/FOXPlus.list, policy: 环球影视 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Fox/Fox.list, policy: 环球影视 } }
+- { rule_set: { match: https://raw.githubusercontent.com/laobanbiefangcu/ios_rule_script/master/rule/Surge/Max/Max.list, policy: 环球影视 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Hulu/Hulu.list, policy: 环球影视 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/HuluJP/HuluJP.list, policy: 环球影视 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/HuluUSA/HuluUSA.list, policy: 环球影视 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/JOOX/JOOX.list, policy: 环球影视 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/KKBOX/KKBOX.list, policy: 环球影视 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/KKTV/KKTV.list, policy: 环球影视 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/LineTV/LineTV.list, policy: 环球影视 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/myTVSUPER/myTVSUPER.list, policy: 环球影视 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/PandoraTV/PandoraTV.list, policy: 环球影视 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/PBS/PBS.list, policy: 环球影视 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/ViuTV/ViuTV.list, policy: 环球影视 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/AbemaTV/AbemaTV.list, policy: 环球影视 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/AmazonPrimeVideo/AmazonPrimeVideo.list, policy: 环球影视 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Amazon/Amazon.list, policy: 环球影视 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Telegram/Telegram.list, policy: 电报信息 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Apple/Apple.list, policy: 苹果服务 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/AppStore/AppStore.list, policy: 苹果服务 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/iCloud/iCloud.list, policy: 苹果服务 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/SystemOTA/SystemOTA.list, policy: 苹果服务 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/AppleID/AppleID.list, policy: 苹果服务 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/TestFlight/TestFlight.list, policy: 苹果服务 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/AppleMail/AppleMail.list, policy: 苹果服务 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/AppleMusic/AppleMusic.list, policy: 苹果服务 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/AppleNews/AppleNews.list, policy: 苹果服务 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/AppleFirmware/AppleFirmware.list, policy: 苹果服务 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/AppleHardware/AppleHardware.list, policy: 苹果服务 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/AppleDaily/AppleDaily.list, policy: 苹果服务 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/AppleDev/AppleDev.list, policy: 苹果服务 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/AppleMedia/AppleMedia.list, policy: 苹果服务 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/FitnessPlus/FitnessPlus.list, policy: 苹果服务 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Siri/Siri.list, policy: 苹果服务 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/AppleProxy/AppleProxy.list, policy: 苹果服务 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Beats/Beats.list, policy: 苹果服务 } }
+- { rule_set: { match: https://raw.githubusercontent.com/laobanbiefangcu/ios_rule_script/master/rule/Surge/Steam/Steam.list, policy: 数字游戏 } }
+- { rule_set: { match: https://raw.githubusercontent.com/laobanbiefangcu/ios_rule_script/master/rule/Surge/SteamCN/SteamCN.list, policy: 数字游戏 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Game/Game.list, policy: 数字游戏 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Blizzard/Blizzard.list, policy: 数字游戏 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Rockstar/Rockstar.list, policy: 数字游戏 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/PlayStation/PlayStation.list, policy: 数字游戏 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Epic/Epic.list, policy: 数字游戏 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/WildRift/WildRift.list, policy: 数字游戏 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Supercell/Supercell.list, policy: 数字游戏 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/EA/EA.list, policy: 数字游戏 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Garena/Garena.list, policy: 数字游戏 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Gog/Gog.list, policy: 数字游戏 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/HoYoverse/HoYoverse.list, policy: 数字游戏 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Game/TencentLoLMobile/TencentLoLMobile.list, policy: DIRECT } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Game/GameDownloadCN/GameDownloadCN.list, policy: DIRECT } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Game/GameDownload/GameDownload.list, policy: 数字游戏 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/NGA/NGA.list, policy: 数字游戏 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Speedtest/Speedtest.list, policy: 测速软件 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/PayPal/PayPal.list, policy: 贝宝信用 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Microsoft/Microsoft.list, policy: 微软服务 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/MicrosoftEdge/MicrosoftEdge.list, policy: 微软服务 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/OneDrive/OneDrive.list, policy: 微软服务 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Bing/Bing.list, policy: 微软服务 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Teams/Teams.list, policy: 微软服务 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Intel/Intel.list, policy: 微软服务 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Google/Google.list, policy: 谷歌服务 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/GoogleDrive/GoogleDrive.list, policy: 谷歌服务 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/GoogleVoice/GoogleVoice.list, policy: 谷歌服务 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Chromecast/Chromecast.list, policy: 谷歌服务 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/GoogleFCM/GoogleFCM.list, policy: 谷歌服务 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/GoogleEarth/GoogleEarth.list, policy: 谷歌服务 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Scholar/Scholar.list, policy: 节点选择 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Instagram/Instagram.list, policy: 节点选择 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Facebook/Facebook.list, policy: 节点选择 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Twitter/Twitter.list, policy: 节点选择 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Wikimedia/Wikimedia.list, policy: 节点选择 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Qobuz/Qobuz.list, policy: 无损音乐 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Pandora/Pandora.list, policy: 无损音乐 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/SoundCloud/SoundCloud.list, policy: 无损音乐 } }
+- { rule_set: { match: https://raw.githubusercontent.com/laobanbiefangcu/ios_rule_script/master/rule/Surge/Porn/Porn.list, policy: 节点选择 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Whatsapp/Whatsapp.list, policy: 节点选择 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Ubuntu/Ubuntu.list, policy: 节点选择 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Reddit/Reddit.list, policy: 节点选择 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/12306/12306.list, policy: DIRECT } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/KugouKuwo/KugouKuwo.list, policy: DIRECT } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Baidu/Baidu.list, policy: DIRECT } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/BiliBili/BiliBili.list, policy: DIRECT } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/WeChat/WeChat.list, policy: DIRECT } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/ChinaMedia/ChinaMedia.list, policy: DIRECT } }
+- { rule_set: { match: https://raw.githubusercontent.com/laobanbiefangcu/ios_rule_script/master/rule/Surge/Direct/Direct.list, policy: DIRECT } }
+- { rule_set: { match: https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/main/ruleset/ASN.China.list, policy: DIRECT } }
+- { geoip: { match: CN, policy: DIRECT } }
+- { default: { policy: 漏网之鱼 } }
+
+modules:
+- { url: https://raw.githubusercontent.com/QingRex/LoonKissSurge/refs/heads/main/Surge/Beta/HTTPDNS%E6%8B%A6%E6%88%AA%E5%99%A8.beta.sgmodule, enabled: true }
+- { url: https://raw.githubusercontent.com/QingRex/LoonKissSurge/refs/heads/main/Surge/Beta/%E5%B9%BF%E5%91%8A%E5%B9%B3%E5%8F%B0%E6%8B%A6%E6%88%AA%E5%99%A8.beta.sgmodule, update_interval: 86400, enabled: true }
+- { url: https://raw.githubusercontent.com/QingRex/LoonKissSurge/refs/heads/main/Surge/Beta/%E5%BE%AE%E5%8D%9A%E5%8E%BB%E5%B9%BF%E5%91%8A.beta.sgmodule, enabled: true }
+- { url: https://raw.githubusercontent.com/QingRex/LoonKissSurge/refs/heads/main/Surge/Official/%E2%AD%90%EF%B8%8F%20BoxJs.official.sgmodule, enabled: true }
+- { url: https://raw.githubusercontent.com/QingRex/LoonKissSurge/refs/heads/main/Surge/Beta/QQ%E9%9F%B3%E4%B9%90%E5%8E%BB%E5%B9%BF%E5%91%8A.beta.sgmodule, enabled: true }
+- { url: https://raw.githubusercontent.com/QingRex/LoonKissSurge/refs/heads/main/Surge/Official/%E8%B5%B7%E7%82%B9%E4%B8%AD%E6%96%87%E5%8E%BB%E5%B9%BF%E5%91%8A.official.sgmodule, enabled: true }
+- { url: https://raw.githubusercontent.com/laobanbiefangcu/ios_rule_script/master/module/surge/Google%E6%90%9C%E7%B4%A2%E9%87%8D%E5%AE%9A%E5%90%91.sgmodule, enabled: true }
+- { url: https://raw.githubusercontent.com/QingRex/LoonKissSurge/refs/heads/main/Surge/Official/%E2%AD%90%EF%B8%8F%20Script%20Hub.official.sgmodule, enabled: true }
+- { url: https://raw.githubusercontent.com/QingRex/LoonKissSurge/refs/heads/main/Surge/Official/%E2%AD%90%EF%B8%8F%20Sub-Store.official.sgmodule, enabled: true }
+- { url: https://raw.githubusercontent.com/QingRex/LoonKissSurge/refs/heads/main/Surge/Official/%E7%91%9E%E5%B9%B8%E5%92%96%E5%95%A1%E5%8E%BB%E5%B9%BF%E5%91%8A.sgmodule, enabled: true }
+- { url: https://raw.githubusercontent.com/QingRex/LoonKissSurge/refs/heads/main/Surge/Official/%E7%BD%91%E6%98%93%E4%BA%91%E9%9F%B3%E4%B9%90%E5%8E%BB%E5%B9%BF%E5%91%8A.official.sgmodule, enabled: true }
+- { url: https://raw.githubusercontent.com/QingRex/LoonKissSurge/refs/heads/main/Surge/Official/%E8%B4%B4%E5%90%A7%E5%8E%BB%E5%B9%BF%E5%91%8A.official.sgmodule, enabled: true }
