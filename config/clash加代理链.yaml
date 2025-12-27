@@ -69,10 +69,10 @@ proxy-providers:
   机场: { type: http, udp: true, interval: 3600, url: '订阅链接', path: ./Profiles/Proxies/机场.yaml, benchmark-timeout: 3600, benchmark-url: 'http://www.gstatic.com/generate_204'}
 proxies:
 #添加ss配置，mihomo内核支持dialer-proxy，stash不支持dialer-proxy
-- {name: 🇭🇰香港节点01,type: ss,server: IP,port: 端口,cipher: 协议,password: 密码,udp: true,tfo: true,fast-open: true,dialer-proxy=🇭🇰墙洞香港节点1}
-- {name: 🇭🇰香港节点02,type: ss,server: IP,port: 端口,cipher: 协议,password: 密码,udp: true,tfo: true,fast-open: true,dialer-proxy=🇭🇰墙洞香港节点2}
-- {name: 🇯🇵日本节点01,,type: ss,server: IP,port: 端口,cipher: 协议,password: 密码,udp: true,tfo: true,fast-open: true,dialer-proxy=🇯🇵墙洞日本节点1}
-- {name: 🇯🇵日本节点02,,type: ss,server: IP,port: 端口,cipher: 协议,password: 密码,udp: true,tfo: true,fast-open: true,dialer-proxy=🇯🇵墙洞日本节点2}
+- {name: 🇭🇰香港节点01,type: ss,server: IP,port: 端口,cipher: 协议,password: 密码,udp: true,tfo: true,fast-open: true,dialer-proxy: 🇭🇰墙洞香港节点1}
+- {name: 🇭🇰香港节点02,type: ss,server: IP,port: 端口,cipher: 协议,password: 密码,udp: true,tfo: true,fast-open: true,dialer-proxy: 🇭🇰墙洞香港节点2}
+- {name: 🇯🇵日本节点01,,type: ss,server: IP,port: 端口,cipher: 协议,password: 密码,udp: true,tfo: true,fast-open: true,dialer-proxy: 🇯🇵墙洞日本节点1}
+- {name: 🇯🇵日本节点02,,type: ss,server: IP,port: 端口,cipher: 协议,password: 密码,udp: true,tfo: true,fast-open: true,dialer-proxy: 🇯🇵墙洞日本节点2}
 proxy-groups:
 #节点选择加了代理链名字，后面的策略组自己加
 - {name: 节点选择,icon: https://raw.githubusercontent.com/laobanbiefangcu/Qure/master/IconSet/Color/Proxy.png,type: select, proxies: [自动选择,🇭🇰香港节点01,🇭🇰香港节点02,🇯🇵日本节点01,🇯🇵日本节点02],use: [机场]}
