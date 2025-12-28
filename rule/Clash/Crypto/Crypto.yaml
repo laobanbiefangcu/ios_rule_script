@@ -3,11 +3,11 @@
 # REPO: https://github.com/laobanbiefangcu/ios_rule_script
 # UPDATED: 2025-12-28 14:08:00
 # Modified from https://github.com/szkane/ClashRuleSet/blob/main/Clash/Web3.list
-# DOMAIN-SUFFIX: 343
-# DOMAIN-KEYWORD: 64
-# DOMAIN: 3
+# DOMAIN-SUFFIX: 361
+# DOMAIN-KEYWORD: 65
+# DOMAIN: 5
 # PROCESS-NAME: 3
-# TOTAL: 413
+# TOTAL: 434
 
 payload:
   # airdrop project
@@ -26,6 +26,24 @@ payload:
   - DOMAIN-SUFFIX,bitstamp.net
   - DOMAIN-SUFFIX,bittrex.com
   - DOMAIN-SUFFIX,bybit.com
+  - DOMAIN-SUFFIX,bybit.biz
+  - DOMAIN-SUFFIX,bybit.cloud
+  - DOMAIN-SUFFIX,bybit.eu
+  - DOMAIN-SUFFIX,bybit-global.com
+  - DOMAIN-SUFFIX,bybitglobal.com
+  - DOMAIN-SUFFIX,byabcde.com
+  - DOMAIN-SUFFIX,byapps.net
+  - DOMAIN-SUFFIX,byapis.com
+  - DOMAIN-SUFFIX,bybdc6.com
+  - DOMAIN-SUFFIX,bycbe.com
+  - DOMAIN-SUFFIX,bycsi.com
+  - DOMAIN-SUFFIX,byd3c3.com
+  - DOMAIN-SUFFIX,bymj.io
+  - DOMAIN-SUFFIX,bytick.com
+  - DOMAIN-SUFFIX,monitor-frontend-collector.a.bybit-aws.com
+  - DOMAIN,bybit-exchange.github.io
+  - DOMAIN,bybit.ada.support
+  - DOMAIN-KEYWORD,bybit
   - DOMAIN-SUFFIX,coinbase.com
   - DOMAIN-SUFFIX,coincheck.com
   - DOMAIN-SUFFIX,coinone.co.kr
@@ -89,6 +107,8 @@ payload:
   - DOMAIN-SUFFIX,bsc.getblock.io
   - DOMAIN-SUFFIX,bscscan.com
   - DOMAIN-SUFFIX,binancecnt.com
+  - DOMAIN-SUFFIX,binancefuture.com
+  - DOMAIN-SUFFIX,bnbzh.ac
   - PROCESS-NAME,Binance.exe
   - DOMAIN-KEYWORD,binance
 
@@ -241,6 +261,7 @@ payload:
   - DOMAIN-SUFFIX,cmcap.io
   - DOMAIN-SUFFIX,saasexch.com
   - DOMAIN-SUFFIX,saasexch.info
+  - DOMAIN-SUFFIX,saasexch.cc
   - DOMAIN-SUFFIX,commonservice.io
 
   # > POOL
