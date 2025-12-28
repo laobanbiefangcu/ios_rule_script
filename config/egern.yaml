@@ -57,10 +57,10 @@ policy_groups:
 - { select: { name: 环球影视, policies: [自动选择, 节点选择, 机场], flatten: true, icon: https://raw.githubusercontent.com/laobanbiefangcu/icon/main/Policy-Filter/Netflix.png, hidden: false } }
 - { select: { name: 国外抖音, policies: [自动选择, 节点选择, 机场], flatten: true, icon: https://raw.githubusercontent.com/laobanbiefangcu/icon/main/Policy-Filter/Tiktok.png, hidden: false } }
 - { select: { name: 谷歌服务, policies: [节点选择, 自动选择, 机场], flatten: false, icon: https://raw.githubusercontent.com/laobanbiefangcu/icon/main/Policy-Filter/Google.png, hidden: false } }
-- { select: { name: 贝宝信用, policies: [自动选择, 节点选择, 机场], flatten: true, icon: https://raw.githubusercontent.com/laobanbiefangcu/icon/main/Policy-Filter/Paypal.png, hidden: false } }
-- { select: { name: 测速软件, policies: [DIRECT, 节点选择, 自动选择, 机场], icon: https://raw.githubusercontent.com/laobanbiefangcu/icon/main/Policy-Filter/Speedtest.png } }
 - { select: { name: 苹果服务, policies: [自动选择, 节点选择, 机场], flatten: true, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Apple.png, hidden: false } }
 - { select: { name: 微软服务, policies: [自动选择, 节点选择, 机场], flatten: true, icon: https://raw.githubusercontent.com/laobanbiefangcu/icon/main/Policy-Filter/Microsoft.png, hidden: false } }
+- { select: { name: 金融交易, policies: [自动选择, 节点选择, 机场], flatten: true, icon: https://raw.githubusercontent.com/laobanbiefangcu/icon/main/Policy-Filter/Paypal.png, hidden: false } }
+- { select: { name: 测速软件, policies: [DIRECT, 节点选择, 自动选择, 机场], icon: https://raw.githubusercontent.com/laobanbiefangcu/icon/main/Policy-Filter/Speedtest.png } }
 - { select: { name: 数字游戏, policies: [DIRECT, 节点选择, 自动选择], flatten: false, icon: https://raw.githubusercontent.com/laobanbiefangcu/icon/main/Policy-Filter/Game.png, hidden: false } }
 - { select: { name: 全球直连, policies: [DIRECT, REJECT], icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Direct.png } }
 - { select: { name: 全球拦截, policies: [REJECT, DIRECT], icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Reject.png } }
@@ -152,7 +152,8 @@ rules:
 - { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Game/GameDownload/GameDownload.list, policy: 数字游戏 } }
 - { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/NGA/NGA.list, policy: 数字游戏 } }
 - { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Speedtest/Speedtest.list, policy: 测速软件 } }
-- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/PayPal/PayPal.list, policy: 贝宝信用 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/PayPal/PayPal.list, policy: 金融交易 } }
+- { rule_set: { match: https://raw.githubusercontent.com/laobanbiefangcu/ios_rule_script/master/rule/Surge/Crypto/Crypto.list, policy: 金融交易 } }
 - { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Microsoft/Microsoft.list, policy: 微软服务 } }
 - { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/MicrosoftEdge/MicrosoftEdge.list, policy: 微软服务 } }
 - { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/OneDrive/OneDrive.list, policy: 微软服务 } }
