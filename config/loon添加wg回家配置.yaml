@@ -73,10 +73,10 @@ Usenet = select,节点选择,全球直连,机场,url = http://cp.cloudflare.com/
 环球影视 = select,节点选择,机场,url = http://cp.cloudflare.com/generate_204,img-url = https://raw.githubusercontent.com/laobanbiefangcu/icon/main/Policy-Filter/Netflix.png
 国外抖音 = select,节点选择,机场,url = http://cp.cloudflare.com/generate_204,img-url = https://raw.githubusercontent.com/laobanbiefangcu/icon/main/Policy-Filter/Tiktok.png
 谷歌服务 = select,节点选择,机场,url = http://cp.cloudflare.com/generate_204,img-url = https://raw.githubusercontent.com/laobanbiefangcu/icon/main/Policy-Filter/Google.png
-贝宝信用 = select,节点选择,机场,url = http://cp.cloudflare.com/generate_204,img-url = https://raw.githubusercontent.com/laobanbiefangcu/icon/main/Policy-Filter/Paypal.png
-测速软件 = select,全球直连,节点选择,自动选择,机场,url = http://cp.cloudflare.com/generate_204,img-url = https://raw.githubusercontent.com/laobanbiefangcu/icon/main/Policy-Filter/Speedtest.png
 苹果服务 = select,全球直连,节点选择,自动选择,机场,url = http://cp.cloudflare.com/generate_204,img-url = https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Apple.png
 微软服务 = select,全球直连,节点选择,自动选择,机场,url = http://cp.cloudflare.com/generate_204,img-url = https://raw.githubusercontent.com/laobanbiefangcu/icon/main/Policy-Filter/Microsoft.png
+金融交易 = select,节点选择,机场,url = http://cp.cloudflare.com/generate_204,img-url = https://raw.githubusercontent.com/laobanbiefangcu/icon/main/Policy-Filter/Paypal.png
+测速软件 = select,全球直连,节点选择,自动选择,机场,url = http://cp.cloudflare.com/generate_204,img-url = https://raw.githubusercontent.com/laobanbiefangcu/icon/main/Policy-Filter/Speedtest.png
 数字游戏 = select,全球直连,节点选择,自动选择,机场,url = http://cp.cloudflare.com/generate_204,img-url = https://raw.githubusercontent.com/laobanbiefangcu/icon/main/Policy-Filter/Game.png
 全球直连 = select,DIRECT,REJECT,url = http://cp.cloudflare.com/generate_204,img-url = https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Direct.png
 全球拦截 = select,DIRECT,REJECT,url = http://cp.cloudflare.com/generate_204,img-url = https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Reject.png
@@ -174,7 +174,8 @@ https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge
 https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Sony/Sony.list, policy=数字游戏, tag=Sony, enabled=true
 https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Xbox/Xbox.list, policy=数字游戏, tag=Xbox, enabled=true
 https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Speedtest/Speedtest.list, policy=测速软件, tag=Speedtest, enabled=true
-https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/PayPal/PayPal.list, policy=贝宝信用, tag=PayPal, enabled=true
+https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/PayPal/PayPal.list, policy=金融交易, tag=PayPal, enabled=true
+https://raw.githubusercontent.com/laobanbiefangcu/ios_rule_script/master/rule/Surge/Crypto/Crypto.list, policy=金融交易, tag=Crypto, enabled=true
 https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Microsoft/Microsoft.list, policy=微软服务, tag=Microsoft, enabled=true
 https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/MicrosoftEdge/MicrosoftEdge.list, policy=微软服务, tag=MicrosoftEdge, enabled=true
 https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/OneDrive/OneDrive.list, policy=微软服务, tag=OneDrive, enabled=true
