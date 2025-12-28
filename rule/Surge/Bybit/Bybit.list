@@ -1,0 +1,14 @@
+# NAME: Bybit
+# AUTHOR: laoban
+# REPO: https://github.com/laobanbiefangcu/ios_rule_script
+# UPDATED: 2025-12-28 13:56:51
+# DOMAIN-SUFFIX: 15
+# TOTAL: 15
+DOMAIN-SUFFIX,monitor-frontend-collector.a.bybit-aws.com
+DOMAIN-SUFFIX,bybit.com
+DOMAIN-SUFFIX,bybit.biz
+DOMAIN-SUFFIX,bybdc6.com
+DOMAIN-SUFFIX,byabcde.com
+DOMAIN-SUFFIX,byapps.net
+DOMAIN-SUFFIX,byd3c3.com
+DOMAIN-KEYWORD,bybit
