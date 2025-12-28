@@ -86,10 +86,10 @@ proxy-groups:
 - {name: 环球影视,icon: https://raw.githubusercontent.com/laobanbiefangcu/icon/main/Policy-Filter/Netflix.png,type: select, proxies: [节点选择],use: [机场]}
 - {name: 国外抖音,icon: https://raw.githubusercontent.com/laobanbiefangcu/icon/main/Policy-Filter/Tiktok.png,type: select, proxies: [节点选择],use: [机场]}
 - {name: 谷歌服务,icon: https://raw.githubusercontent.com/laobanbiefangcu/icon/main/Policy-Filter/Google.png,type: select, proxies: [节点选择],use: [机场]}
-- {name: 贝宝信用,icon: https://raw.githubusercontent.com/laobanbiefangcu/icon/main/Policy-Filter/Paypal.png,type: select, proxies: [节点选择],use: [机场]}
-- {name: 测速软件,icon: https://raw.githubusercontent.com/laobanbiefangcu/icon/main/Policy-Filter/Speedtest.png,type: select, proxies: [全球直连,节点选择],use: [机场]}
 - {name: 苹果服务,icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Apple.png,type: select, proxies: [全球直连,节点选择],use: [机场]}
 - {name: 微软服务,icon: https://raw.githubusercontent.com/laobanbiefangcu/icon/main/Policy-Filter/Microsoft.png,type: select, proxies: [全球直连,节点选择],use: [机场]}
+- {name: 金融交易,icon: https://raw.githubusercontent.com/laobanbiefangcu/icon/main/Policy-Filter/Paypal.png,type: select, proxies: [节点选择],use: [机场]}
+- {name: 测速软件,icon: https://raw.githubusercontent.com/laobanbiefangcu/icon/main/Policy-Filter/Speedtest.png,type: select, proxies: [全球直连,节点选择],use: [机场]}
 - {name: 数字游戏,icon: https://raw.githubusercontent.com/laobanbiefangcu/icon/main/Policy-Filter/Game.png,type: select, proxies: [全球直连,节点选择],use: [机场]}
 - {name: 全球直连,icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Direct.png,type: select, proxies: [DIRECT, REJECT]}
 - {name: 全球拦截,icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Reject.png,type: select, proxies: [DIRECT, REJECT]}
@@ -140,7 +140,8 @@ rule-providers:
     ChinaMedia: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/ChinaMedia/ChinaMedia.yaml', path: ./Rules/ChinaMedia.yaml }
     Chromecast: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Chromecast/Chromecast.yaml', path: ./Rules/chromecast.yaml }
     Claude: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Claude/Claude.yaml', path: ./Rules/Claude.yaml }
-    Copilot: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Copilot/Copilot.yaml', path: ./Rules/Copilot.yaml }
+    Copilot: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Copilot/Copilot.yaml', path: ./Rules/Copilot.yaml
+    Crypto: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/laobanbiefangcu/ios_rule_script/master/rule/Clash/Crypto/Crypto.yaml', path: ./Rules/Crypto.yaml }
     DingTalk: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/DingTalk/DingTalk.yaml', path: ./Rules/DingTalk.yaml }
     Direct: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/laobanbiefangcu/ios_rule_script/master/rule/Clash/Direct/Direct.yaml', path: ./Rules/Direct.yaml }
     Discord: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Discord/Discord.yaml', path: ./Rules/Discord.yaml }
@@ -279,7 +280,8 @@ rules:
  - RULE-SET,Rarbg,节点选择
  - RULE-SET,LastFM,节点选择
  - RULE-SET,TikTok,国外抖音
- - RULE-SET,PayPal,贝宝信用
+ - RULE-SET,PayPal,金融交易
+ - RULE-SET,Crypto,金融交易
  - RULE-SET,Apple,苹果服务
  - RULE-SET,AppStore,苹果服务
  - RULE-SET,iCloud,苹果服务
