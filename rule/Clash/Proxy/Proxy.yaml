@@ -83,7 +83,3 @@ payload:
   - DOMAIN-SUFFIX,trakt.tv
   - DOMAIN-KEYWORD,docker
   - DOMAIN-KEYWORD,htx.com
-  - DOMAIN-KEYWORD,radarr
-  - DOMAIN-KEYWORD,sonarr
-  - DOMAIN-KEYWORD,lidarr
-  - DOMAIN-KEYWORD,whisparr
