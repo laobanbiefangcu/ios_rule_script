@@ -82,3 +82,10 @@ DOMAIN,api.cloudflare.com
 DOMAIN,fwa.lifesizecloud.com
 IP-CIDR,38.22.94.0/22,no-resolve
 DOMAIN,lightsail.digital-nvme.com
+DOMAIN-SUFFIX,22b74943-12ad-47f4-b705-f2defb6ffea0.org
+DOMAIN-SUFFIX,solidigm-zxcv.com
+DOMAIN-SUFFIX,114837322.xyz
+DOMAIN-SUFFIX,linkcubecloud.org
+DOMAIN-SUFFIX,233netpro.com
+DOMAIN-SUFFIX,digital-nvme.com
+DOMAIN-SUFFIX,07c06051-81fd-4aa4-a94e-a0860315df8f.org
