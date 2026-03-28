@@ -323,4 +323,3 @@ https://github.com/DualSubs/Netflix/releases/latest/download/DualSubs.Netflix.pl
 https://github.com/DualSubs/AddOn/releases/latest/download/DualSubs.AddOn.MicrosoftTranslate.plugin, enabled=true
 https://raw.githubusercontent.com/Peng-YM/Sub-Store/master/config/Loon.plugin, policy=节点选择, enabled=true
 https://raw.githubusercontent.com/chavyleung/scripts/master/box/rewrite/boxjs.rewrite.loon.plugin, policy=全球直连, tag=BoxJs, enabled=true
-skip-server-cert-verify = true
