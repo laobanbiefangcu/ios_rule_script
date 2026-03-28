@@ -1,8 +1,8 @@
 #!MANAGED-CONFIG 订阅链接
-ipv6: false
+ipv6: true
 http_port: 3080
 socks_port: 3090
-allow_external_connections: false
+allow_external_connections: true
 vif_only: true
 hijack_dns:
 - '*:53'
@@ -17,24 +17,44 @@ include_cellular_services: false
 include_local_networks: false
 dns:
   bootstrap:
-  - system
+  - 223.5.5.5
+  - 119.29.29.29
   upstreams:
-    google:
-    - https://8.8.8.8
-    - https://8.8.4.4
+    Global DNS:
+    - quic://223.5.5.5:853
+    - quic://223.6.6.6:853
+    - https://223.5.5.5/dns-query
+    - https://223.6.6.6/dns-query
+    - https://dns.alidns.com/dns-query
+    - https://dns.google/dns-query
+    - https://dns.cloudflare.com/dns-query
+    国外DNS:
+    - https://doh.sb/dns-query
+    - https://dns.google/dns-query
+    - https://dns.quad9.net/dns-query
+    - https://dns.adguard.com/dns-query
+    - https://cloudflare-dns.com/dns-query
+    BLOCK DNS:
+    - tls://dns.nextdns.io/c761db
+    - tls://dns.adguard-dns.com
+    - https://dns.nextdns.io/c761db
+    - https://dns.adguard.com/dns-query
+    - quic://223.5.5.5:853
+    - quic://223.6.6.6:853
+    - https://doh.pub/dns-query
   forward:
-  - wildcard:
-      match: '*.cn'
-      value: system
-  - proxy_rule_set:
-      match: https://github.com/ACL4SSR/ACL4SSR/raw/master/Clash/ChinaDomain.list
-      value: system
-  - regex:
-      match: ^ad\..*|^ads\..*
-      value: quic://dns.adguard-dns.com
-  - wildcard:
+  - domain_wildcard:
       match: '*'
-      value: google
+      value: Global DNS
+      disabled: false
+  - domain_wildcard:
+      match: '*'
+      value: 国外DNS
+      disabled: true
+  - domain_wildcard:
+      match: '*'
+      value: BLOCK DNS
+      disabled: true
   hosts:
     example.com:
     - www.example.com
