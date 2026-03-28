@@ -130,6 +130,7 @@ https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge
 https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Amazon/Amazon.list, policy=环球影视, tag=Amazon, enabled=true
 https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Telegram/Telegram.list, policy=电报信息, tag=Telegram, enabled=true
 https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Apple/Apple.list, policy=苹果服务, tag=Apple, enabled=true
+https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Apple/Apple_All.list, policy=苹果服务, tag=Apple, enabled=true
 https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/AppStore/AppStore.list, policy=苹果服务, tag=AppStore, enabled=true
 https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/iCloud/iCloud.list, policy=苹果服务, tag=iCloud, enabled=true
 https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/SystemOTA/SystemOTA.list, policy=苹果服务, tag=SystemOTA, enabled=true
@@ -251,7 +252,15 @@ https://raw.githubusercontent.com/loon0x00/loonExampleConfig/master/Rewrite/Auto
 [Plugin]
 https://kelee.one/Tool/Loon/Lpx/Block_HTTPDNS.lpx, enabled=true
 https://kelee.one/Tool/Loon/Lpx/BlockAdvertisers.lpx, enabled=true
-https://raw.githubusercontent.com/sooyaaabo/Loon/main/Plugin/BlockAds.lpx, enabled=true
+https://kelee.one/Tool/Loon/Lpx/QiDian_remove_ads.lpx, enabled=true
+https://kelee.one/Tool/Loon/Lpx/MangoTV_remove_ads.lpx, enabled=true
+https://kelee.one/Tool/Loon/Lpx/iReaderDejian_remove_ads.lpx, enabled=true
+https://kelee.one/Tool/Loon/Lpx/BaiduMap_remove_ads.lpx, enabled=true
+https://kelee.one/Tool/Loon/Lpx/WPS_checkin.lpx, enabled=true
+https://kelee.one/Tool/Loon/Lpx/Spotify_lyrics_translation.lpx, enabled=true
+https://kelee.one/Tool/Loon/Lpx/Soul_remove_ads.lpx, enabled=true
+https://kelee.one/Tool/Loon/Lpx/Damai_remove_ads.lpx, enabled=true
+https://kelee.one/Tool/Loon/Lpx/Taopiaopiao_remove_ads.lpx, enabled=true
 https://kelee.one/Tool/Loon/Lpx/Remove_ads_by_keli.lpx, enabled=false
 https://kelee.one/Tool/Loon/Lpx/Google.lpx, enabled=true
 https://kelee.one/Tool/Loon/Lpx/Script-Hub.lpx, enabled=true
@@ -266,7 +275,7 @@ https://kelee.one/Tool/Loon/Lpx/Keep_remove_ads.lpx, enabled=true
 https://kelee.one/Tool/Loon/Lpx/123NetWorkDisk_remove_ads.lpx, enabled=true
 https://kelee.one/Tool/Loon/Lpx/MeiTu_remove_ads.lpx, enabled=true
 https://kelee.one/Tool/Loon/Lpx/PinDuoDuo_remove_ads.lpx, enabled=true
-https://raw.githubusercontent.com/sooyaaabo/Loon/main/Plugin/Goofish.lpx, enabled=true
+https://raw.githubusercontent.com/sooyaaabo/Loon/main/Plugin/Goofish.lpx, enabled=false
 https://kelee.one/Tool/Loon/Lpx/FleaMarket_remove_ads.lpx, enabled=true
 https://kelee.one/Tool/Loon/Lpx/ColorfulClouds_remove_ads.lpx, enabled=true
 https://kelee.one/Tool/Loon/Lpx/AutoHome_remove_ads.lpx, enabled=true
@@ -280,7 +289,6 @@ https://kelee.one/Tool/Loon/Lpx/12306_remove_ads.lpx, enabled=true
 https://kelee.one/Tool/Loon/Lpx/Taobao_remove_ads.lpx, enabled=true
 https://kelee.one/Tool/Loon/Lpx/JD_remove_ads.lpx, enabled=true
 https://kelee.one/Tool/Loon/Lpx/Tencent_Video_remove_ads.lpx, enabled=true
-https://kelee.one/Tool/Loon/Lpx/YouKu_Video_remove_ads.lpx, enabled=true
 https://kelee.one/Tool/Loon/Lpx/DragonRead_remove_ads.lpx, enabled=true
 https://kelee.one/Tool/Loon/Lpx/iQiYi_Video_remove_ads.lpx, enabled=true
 https://kelee.one/Tool/Loon/Lpx/AliYunDrive_remove_ads.lpx, enabled=true
@@ -307,17 +315,5 @@ https://github.com/DualSubs/Spotify/releases/latest/download/DualSubs.Spotify.pl
 https://github.com/DualSubs/Netflix/releases/latest/download/DualSubs.Netflix.plugin, enabled=true
 https://github.com/DualSubs/AddOn/releases/latest/download/DualSubs.AddOn.MicrosoftTranslate.plugin, enabled=true
 https://raw.githubusercontent.com/Peng-YM/Sub-Store/master/config/Loon.plugin, policy=节点选择, enabled=true
-https://raw.githubusercontent.com/deezertidal/private/master/plugallery/bdwk.plugin, enabled=true
-https://raw.githubusercontent.com/chengkongyiban/Loon/main/Loon-Gallery/BaiduCloud.plugin, enabled=true
-https://raw.githubusercontent.com/chengkongyiban/Loon/main/Loon-Gallery/UnblockURLinWeChat.plugin, enabled=true
-https://raw.githubusercontent.com/app2smile/rules/master/plugin/tieba.plugin, enabled=true
-https://raw.githubusercontent.com/app2smile/rules/master/plugin/qidian.plugin, enabled=true
 https://raw.githubusercontent.com/chavyleung/scripts/master/box/rewrite/boxjs.rewrite.loon.plugin, policy=全球直连, tag=BoxJs, enabled=true
-https://raw.githubusercontent.com/Tartarus2014/loon-Script/master/Plugin/EMBY.plugin, policy=全球直连, tag=Emby, enabled=true
-
-[MITM]
-ca-p12 = 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
-ca-passphrase = WC91G619
-enable=false
-hostname = *.example.com,*.sample.com
 skip-server-cert-verify = true
