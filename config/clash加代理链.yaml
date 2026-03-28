@@ -115,6 +115,7 @@ rule-providers:
     AmazonPrimeVideo: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/AmazonPrimeVideo/AmazonPrimeVideo.yaml', path: ./Rules/AmazonPrimeVideo.yaml }
     Anti-AD: { type: http, behavior: domain, interval: 86400, url: 'https://raw.githubusercontent.com/laobanbiefangcu/ios_rule_script/master/rule/Clash/Anti-AD/Anti-AD.yaml', path: ./Rules/Anti-AD.yaml }
     Apple: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Apple/Apple.yaml', path: ./Rules/Apple.yaml }
+    Apple_Classical: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Apple/Apple_Classical.yaml', path: ./Rules/Apple_Classical.yaml }
     Apple_Domain: { type: http, behavior: domain, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Apple/Apple_Domain.yaml', path: ./Rules/Apple_Domain.yaml }
     AppleDaily: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/AppleDaily/AppleDaily.yaml', path: ./Rules/AppleDaily.yaml }
     AppleDev: { type: http, behavior: classical, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/AppleDev/AppleDev.yaml', path: ./Rules/AppleDev.yaml }
@@ -283,6 +284,7 @@ rules:
  - RULE-SET,PayPal,金融交易
  - RULE-SET,Crypto,金融交易
  - RULE-SET,Apple,苹果服务
+ - RULE-SET,Apple_Classical,苹果服务
  - RULE-SET,AppStore,苹果服务
  - RULE-SET,iCloud,苹果服务
  - RULE-SET,SystemOTA,苹果服务
