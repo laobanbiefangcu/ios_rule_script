@@ -117,6 +117,7 @@ rules:
 - { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Amazon/Amazon.list, policy: 环球影视 } }
 - { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Telegram/Telegram.list, policy: 电报信息 } }
 - { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Apple/Apple.list, policy: 苹果服务 } }
+- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Apple/Apple_All.list, policy: 苹果服务 } }
 - { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/AppStore/AppStore.list, policy: 苹果服务 } }
 - { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/iCloud/iCloud.list, policy: 苹果服务 } }
 - { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/SystemOTA/SystemOTA.list, policy: 苹果服务 } }
@@ -190,15 +191,41 @@ rules:
 - { default: { policy: 漏网之鱼 } }
 
 modules:
-- { url: https://raw.githubusercontent.com/QingRex/LoonKissSurge/refs/heads/main/Surge/Beta/HTTPDNS%E6%8B%A6%E6%88%AA%E5%99%A8.beta.sgmodule, enabled: true }
-- { url: https://raw.githubusercontent.com/QingRex/LoonKissSurge/refs/heads/main/Surge/Beta/%E5%B9%BF%E5%91%8A%E5%B9%B3%E5%8F%B0%E6%8B%A6%E6%88%AA%E5%99%A8.beta.sgmodule, update_interval: 86400, enabled: true }
-- { url: https://raw.githubusercontent.com/QingRex/LoonKissSurge/refs/heads/main/Surge/Beta/%E5%BE%AE%E5%8D%9A%E5%8E%BB%E5%B9%BF%E5%91%8A.beta.sgmodule, enabled: true }
-- { url: https://raw.githubusercontent.com/QingRex/LoonKissSurge/refs/heads/main/Surge/Official/%E2%AD%90%EF%B8%8F%20BoxJs.official.sgmodule, enabled: true }
-- { url: https://raw.githubusercontent.com/QingRex/LoonKissSurge/refs/heads/main/Surge/Beta/QQ%E9%9F%B3%E4%B9%90%E5%8E%BB%E5%B9%BF%E5%91%8A.beta.sgmodule, enabled: true }
-- { url: https://raw.githubusercontent.com/QingRex/LoonKissSurge/refs/heads/main/Surge/Official/%E8%B5%B7%E7%82%B9%E4%B8%AD%E6%96%87%E5%8E%BB%E5%B9%BF%E5%91%8A.official.sgmodule, enabled: true }
+- { url: https://raw.githubusercontent.com/QingRex/LoonKissSurge/main/Surge/Beta/HTTPDNS%E6%8B%A6%E6%88%AA%E5%99%A8.beta.sgmodule, enabled: true }
+- { url: https://raw.githubusercontent.com/QingRex/LoonKissSurge/main/Surge/Beta/%E5%B9%BF%E5%91%8A%E5%B9%B3%E5%8F%B0%E6%8B%A6%E6%88%AA%E5%99%A8.beta.sgmodule, enabled: true }
+- { url: https://raw.githubusercontent.com/QingRex/LoonKissSurge/main/Surge/Beta/%E5%B0%8F%E7%BA%A2%E4%B9%A6%E5%8E%BB%E5%B9%BF%E5%91%8A.beta.sgmodule, enabled: true }
+- { url: https://raw.githubusercontent.com/QingRex/LoonKissSurge/main/Surge/Beta/%E6%8B%BC%E5%A4%9A%E5%A4%9A%E5%8E%BB%E5%B9%BF%E5%91%8A.beta.sgmodule, enabled: true }
+- { url: https://raw.githubusercontent.com/QingRex/LoonKissSurge/main/Surge/Beta/%E6%B7%98%E7%A5%A8%E7%A5%A8%E5%8E%BB%E5%B9%BF%E5%91%8A.beta.sgmodule, enabled: true }
+- { url: https://raw.githubusercontent.com/QingRex/LoonKissSurge/main/Surge/Beta/%E9%AB%98%E5%BE%B7%E5%9C%B0%E5%9B%BE%E5%8E%BB%E5%B9%BF%E5%91%8A.beta.sgmodule, enabled: true }
+- { url: https://raw.githubusercontent.com/QingRex/LoonKissSurge/main/Surge/Beta/%E9%97%B2%E9%B1%BC%E5%8E%BB%E5%B9%BF%E5%91%8A.beta.sgmodule, enabled: true }
+- { url: https://raw.githubusercontent.com/QingRex/LoonKissSurge/main/Surge/Beta/%E8%B5%B7%E7%82%B9%E8%AF%BB%E4%B9%A6%E5%8E%BB%E5%B9%BF%E5%91%8A.beta.sgmodule, enabled: true }
+- { url: https://raw.githubusercontent.com/QingRex/LoonKissSurge/main/Surge/Beta/%E8%99%8E%E6%89%91%E5%8E%BB%E5%B9%BF%E5%91%8A.beta.sgmodule, enabled: true }
+- { url: https://raw.githubusercontent.com/QingRex/LoonKissSurge/main/Surge/Beta/%E7%BE%8E%E5%9B%BE%E7%A7%80%E7%A7%80%E5%8E%BB%E5%B9%BF%E5%91%8A.beta.sgmodule, enabled: true }
+- { url: https://raw.githubusercontent.com/QingRex/LoonKissSurge/main/Surge/Beta/%E7%BA%B5%E6%A8%AA%E5%B0%8F%E8%AF%B4%E5%8E%BB%E5%B9%BF%E5%91%8A.beta.sgmodule, enabled: true }
+- { url: https://raw.githubusercontent.com/QingRex/LoonKissSurge/main/Surge/Beta/%E7%BD%91%E6%98%93%E4%BA%91%E9%9F%B3%E4%B9%90%E5%8E%BB%E5%B9%BF%E5%91%8A.beta.sgmodule, enabled: true }
+- { url: https://raw.githubusercontent.com/QingRex/LoonKissSurge/main/Surge/Beta/%E7%9F%A5%E4%B9%8E%E5%8E%BB%E5%B9%BF%E5%91%8A.beta.sgmodule, enabled: true }
+- { url: https://raw.githubusercontent.com/QingRex/LoonKissSurge/main/Surge/Beta/%E7%99%BE%E5%BA%A6%E8%B4%B4%E5%90%A7%E5%8E%BB%E5%B9%BF%E5%91%8A.beta.sgmodule, enabled: true }
+- { url: https://raw.githubusercontent.com/QingRex/LoonKissSurge/main/Surge/Beta/%E7%95%AA%E8%8C%84%E5%B0%8F%E8%AF%B4%E5%8E%BB%E5%B9%BF%E5%91%8A.beta.sgmodule, enabled: true }
+- { url: https://raw.githubusercontent.com/QingRex/LoonKissSurge/main/Surge/Beta/%E5%BE%AE%E5%8D%9A%E5%8E%BB%E5%B9%BF%E5%91%8A.beta.sgmodule, enabled: true }
+- { url: https://raw.githubusercontent.com/QingRex/LoonKissSurge/main/Surge/Beta/%E4%BA%AC%E4%B8%9C%E5%8E%BB%E5%B9%BF%E5%91%8A.beta.sgmodule, enabled: true }
+- { url: https://raw.githubusercontent.com/QingRex/LoonKissSurge/main/Surge/Beta/%E5%A4%A7%E9%BA%A6%E5%8E%BB%E5%B9%BF%E5%91%8A.beta.sgmodule, enabled: true }
+- { url: https://raw.githubusercontent.com/QingRex/LoonKissSurge/main/Surge/Beta/QQ%E9%9F%B3%E4%B9%90%E5%8E%BB%E5%B9%BF%E5%91%8A.beta.sgmodule, enabled: true }
+- { url: https://raw.githubusercontent.com/QingRex/LoonKissSurge/main/Surge/Official/%E8%B5%B7%E7%82%B9%E4%B8%AD%E6%96%87%E5%8E%BB%E5%B9%BF%E5%91%8A.official.sgmodule, enabled: true }
+- { url: https://raw.githubusercontent.com/QingRex/LoonKissSurge/main/Surge/Beta/%E5%BE%97%E7%89%A9%E5%8E%BB%E5%B9%BF%E5%91%8A.beta.sgmodule, enabled: true }
 - { url: https://raw.githubusercontent.com/laobanbiefangcu/ios_rule_script/master/module/surge/Google%E6%90%9C%E7%B4%A2%E9%87%8D%E5%AE%9A%E5%90%91.sgmodule, enabled: true }
-- { url: https://raw.githubusercontent.com/QingRex/LoonKissSurge/refs/heads/main/Surge/Official/%E2%AD%90%EF%B8%8F%20Script%20Hub.official.sgmodule, enabled: true }
-- { url: https://raw.githubusercontent.com/QingRex/LoonKissSurge/refs/heads/main/Surge/Official/%E2%AD%90%EF%B8%8F%20Sub-Store.official.sgmodule, enabled: true }
-- { url: https://raw.githubusercontent.com/QingRex/LoonKissSurge/refs/heads/main/Surge/Official/%E7%91%9E%E5%B9%B8%E5%92%96%E5%95%A1%E5%8E%BB%E5%B9%BF%E5%91%8A.sgmodule, enabled: true }
-- { url: https://raw.githubusercontent.com/QingRex/LoonKissSurge/refs/heads/main/Surge/Official/%E7%BD%91%E6%98%93%E4%BA%91%E9%9F%B3%E4%B9%90%E5%8E%BB%E5%B9%BF%E5%91%8A.official.sgmodule, enabled: true }
-- { url: https://raw.githubusercontent.com/QingRex/LoonKissSurge/refs/heads/main/Surge/Official/%E8%B4%B4%E5%90%A7%E5%8E%BB%E5%B9%BF%E5%91%8A.official.sgmodule, enabled: true }
+- { url: https://raw.githubusercontent.com/QingRex/LoonKissSurge/main/Surge/Official/%E2%AD%90%EF%B8%8F%20BoxJs.official.sgmodule, enabled: true }
+- { url: https://raw.githubusercontent.com/QingRex/LoonKissSurge/main/Surge/Official/%E2%AD%90%EF%B8%8F%20Script%20Hub.official.sgmodule, enabled: true }
+- { url: https://raw.githubusercontent.com/QingRex/LoonKissSurge/main/Surge/Official/%E2%AD%90%EF%B8%8F%20Sub-Store.official.sgmodule, enabled: true }
+- { url: https://raw.githubusercontent.com/QingRex/LoonKissSurge/main/Surge/Official/%E7%91%9E%E5%B9%B8%E5%92%96%E5%95%A1%E5%8E%BB%E5%B9%BF%E5%91%8A.sgmodule, enabled: true }
+- { url: https://raw.githubusercontent.com/QingRex/LoonKissSurge/main/Surge/Official/%E7%BD%91%E6%98%93%E4%BA%91%E9%9F%B3%E4%B9%90%E5%8E%BB%E5%B9%BF%E5%91%8A.official.sgmodule, enabled: true }
+- { url: https://raw.githubusercontent.com/QingRex/LoonKissSurge/main/Surge/Official/%E8%B4%B4%E5%90%A7%E5%8E%BB%E5%B9%BF%E5%91%8A.official.sgmodule, enabled: true }
+- { url: https://raw.githubusercontent.com/QingRex/LoonKissSurge/main/Surge/%E7%88%B1%E5%A5%87%E8%89%BA%E5%8E%BB%E5%B9%BF%E5%91%8A.sgmodule, enabled: true }
+- { url: https://raw.githubusercontent.com/QingRex/LoonKissSurge/main/Surge/Beta/%E4%BB%80%E4%B9%88%E5%80%BC%E5%BE%97%E4%B9%B0%E5%8E%BB%E5%B9%BF%E5%91%8A.beta.sgmodule, enabled: true }
+- { url: https://raw.githubusercontent.com/QingRex/LoonKissSurge/main/Surge/Beta/%E4%BC%98%E9%85%B7%E8%A7%86%E9%A2%91%E5%8E%BB%E5%B9%BF%E5%91%8A.beta.sgmodule, enabled: true }
+- { url: https://raw.githubusercontent.com/QingRex/LoonKissSurge/main/Surge/Beta/%E6%B1%BD%E6%B0%B4%E9%9F%B3%E4%B9%90%E5%8E%BB%E5%B9%BF%E5%91%8A.beta.sgmodule, enabled: true }
+- { url: https://raw.githubusercontent.com/QingRex/LoonKissSurge/main/Surge/Beta/%E6%B7%98%E5%AE%9D%E5%8E%BB%E5%B9%BF%E5%91%8A.beta.sgmodule, enabled: true }
+- { url: https://github.com/DualSubs/Universal/releases/latest/download/DualSubs.Universal.sgmodule, enabled: true }
+- { url: https://github.com/DualSubs/Spotify/releases/latest/download/DualSubs.Spotify.sgmodule, enabled: true }
+- { url: https://github.com/DualSubs/Netflix/releases/latest/download/DualSubs.Netflix.sgmodule, enabled: true }
+- { url: https://github.com/DualSubs/YouTube/releases/latest/download/DualSubs.YouTube.sgmodule, enabled: true }
+- { url: https://github.com/DualSubs/AddOn/releases/latest/download/DualSubs.AddOn.MicrosoftTranslate.sgmodule, enabled: true }
