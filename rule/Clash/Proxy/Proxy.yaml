@@ -86,3 +86,4 @@ payload:
   - DOMAIN-KEYWORD,htx.com
   - DOMAIN-SUFFIX,hdhive.com
   - DOMAIN-KEYWORD,1password
+  - DOMAIN-SUFFIX,cloudflare.com
