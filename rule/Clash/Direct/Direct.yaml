@@ -117,3 +117,5 @@ payload:
   - DOMAIN-SUFFIX,cloud-nodes.com
   - DOMAIN-SUFFIX,dickservice.top
   - DOMAIN-SUFFIX,911-gt3-rs.com
+  - DOMAIN,ip.net.coffee
+  - DOMAIN-SUFFIX,iplark.com
