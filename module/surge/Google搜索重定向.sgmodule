@@ -1,31 +1,12 @@
-#!name=Google搜索重定向（一加认证修复版）
-#!desc=将Google搜索、地图由.cn重定向至.com，并修复一加/ColorOS Wi-Fi认证误判。
-#!author=可莉🅥 + 优化 by ChatGPT
-#!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/Google.png
-#!category=BetaModule
-#!tag=网络优化
-#!loon_version=3.2.4(787)
-#!date=2026-07-23
+#!name=Google搜索重定向（Surge 修正版）
+#!desc=google.cn→google.com；generate_204 本地回 204，避免安卓 Captive Portal 误判
+
+[Map Local]
+^https?:\/\/www\.google\.cn\/generate_204 data-type=text data="" status-code=204
 
 [URL Rewrite]
-
-# ==================================================
-# 一加 / ColorOS 联网检测
-# 必须位于Google重定向规则之前
-# ==================================================
-
-^http:\/\/www\.googleapis\.cn\/generate_204(?:\?.*)?$ reject-204
-^http:\/\/www\.google\.cn\/generate_204(?:\?.*)?$ reject-204
-
-# 匹配 conn-service-cn-04，也兼容以后切换到01、02、05等节点
-^http:\/\/conn-service-cn-\d+\.allawntech\.com\/generate204(?:\?.*)?$ reject-204
-
-# ==================================================
-# Google域名重定向
-# ==================================================
-
-^https?:\/\/(?:www\.)?(?:g|google)\.cn(?=\/|$) https://www.google.com 307
-^https?:\/\/(?:ditu|maps)\.google\.cn(?=\/|$) https://maps.google.com 307
+^https?:\/\/(www\.)?(g|google)\.cn\/(?!generate_204) https://www.google.com 307
+^https?:\/\/(ditu|maps)\.google\.cn https://maps.google.com 307
 
 [MITM]
-hostname = %APPEND% www.google.cn, google.cn, g.cn, ditu.google.cn, maps.google.cn
+hostname = %APPEND% www.google.cn, maps.google.cn
