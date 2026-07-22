@@ -1,12 +1,30 @@
-#!name=Google搜索重定向（Surge 修正版）
-#!desc=google.cn→google.com；generate_204 本地回 204，避免安卓 Captive Portal 误判
-
-[Map Local]
-^https?:\/\/www\.google\.cn\/generate_204 data-type=text data="" status-code=204
+#!name=Google搜索重定向
+#!desc=将Google搜索、地图由.cn重定向至.com，并修复一加手机Wi-Fi认证误判
+#!author=可莉🅥 + 优化 by ChatGPT
+#!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/Google.png
+#!tag=重定向
+#!date=2026-07-23
 
 [URL Rewrite]
-^https?:\/\/(www\.)?(g|google)\.cn\/(?!generate_204) https://www.google.com 307
-^https?:\/\/(ditu|maps)\.google\.cn https://maps.google.com 307
+
+# === 一加 / Android Captive Portal 联网检测 ===
+# 必须放在Google重定向规则前面
+
+# 一加当前主要检测地址，路径没有下划线
+^http:\/\/conn-service-cn-04\.allawntech\.com\/generate204(?:\?.*)?$ reject-204
+
+# Google APIs 中国检测地址
+^http:\/\/www\.googleapis\.cn\/generate_204(?:\?.*)?$ reject-204
+
+# Google 中国检测地址
+^http:\/\/www\.google\.cn\/generate_204(?:\?.*)?$ reject-204
+
+# === Google搜索重定向 ===
+# 排除 generate_204，避免被重定向
+^https?:\/\/(?:www\.)?(?:g|google)\.cn\/(?!generate_204(?:\?|$))(.*)$ https://www.google.com/$1 307
+
+# Google地图
+^https?:\/\/(?:ditu|maps)\.google\.cn(\/.*)?$ https://maps.google.com$1 307
 
 [MITM]
-hostname = %APPEND% www.google.cn, maps.google.cn
+hostname = %APPEND% www.google.cn, google.cn, g.cn, ditu.google.cn, maps.google.cn
