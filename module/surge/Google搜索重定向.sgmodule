@@ -1,14 +1,36 @@
 #!name=Google 搜索重定向（Surge 修正版）
-#!desc=google.cn/g.cn/谷歌地图重定向至 .com；generate_204 探测本地返回 204，避免安卓 Captive Portal 误判需要认证
-
-[Map Local]
-# 一加联网检测探测：本地直接回 204，不受重定向影响
-^https?:\/\/www\.google\.cn\/generate_204 data-type=text data="" status-code=204
+#!desc=修复一加 Android Wi-Fi 认证误判；将 Google 搜索和地图从 .cn 重定向到 .com。
+#!author=ChatGPT
+#!date=2026-07-23
 
 [URL Rewrite]
-# (?!generate_204) 排除探测路径，其余路径正常跳转 .com
-^https?:\/\/(www\.)?(g|google)\.cn\/(?!generate_204) https://www.google.com/ 307
-^https?:\/\/(ditu|maps)\.google\.cn\/ https://maps.google.com/ 307
+# === 一加 / Android 联网检测 ===
+# 必须放在普通 Google 重定向规则前面。
+# 将两个 Google 检测地址静默改写到一加当前可用的国内 204 地址。
+# header 模式不会给手机返回 302，所以不会被识别成认证页面。
+
+^http:\/\/www\.google\.cn\/generate_204(?:[?#].*)?$ http://conn-service-cn-04.allawntech.com/generate204 header
+^http:\/\/www\.googleapis\.cn\/generate_204(?:[?#].*)?$ http://conn-service-cn-04.allawntech.com/generate204 header
+
+# === Google 搜索重定向 ===
+# 再次排除 generate_204，防止检测请求进入普通重定向规则。
+
+^https?:\/\/(?:www\.)?(?:g|google)\.cn(?:\/(?!generate_204(?:[?#]|$))(.*))?$ https://www.google.com/$1 302
+
+# === Google 地图重定向 ===
+
+^https?:\/\/(?:ditu|maps)\.google\.cn(?:\/(.*))?$ https://maps.google.com/$1 302
+
+[Rule]
+# 联网检测地址优先直连，避免被 Google.list 等代理规则接管。
+
+DOMAIN,conn-service-cn-04.allawntech.com,DIRECT
+DOMAIN,conn-service-cn-05.allawntech.com,DIRECT
+DOMAIN,www.googleapis.cn,DIRECT
+DOMAIN,www.google.cn,DIRECT
 
 [MITM]
-hostname = %APPEND% www.google.cn, maps.google.cn
+# 仅为 HTTPS 搜索和地图重定向启用 MITM。
+# 三个 204 检测请求都是 HTTP，不需要加入 MITM。
+
+hostname = %APPEND% www.google.cn, google.cn, www.g.cn, g.cn, maps.google.cn, ditu.google.cn
