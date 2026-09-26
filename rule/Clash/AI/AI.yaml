@@ -98,3 +98,4 @@ payload:
   - IP-CIDR,5.28.195.0/24
   - DOMAIN-SUFFIX,manus.im
   - DOMAIN-SUFFIX,midjourney.com
+  - DOMAIN-SUFFIX,sentry.io
