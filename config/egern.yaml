@@ -2,67 +2,62 @@
 ipv6: true
 http_port: 3080
 socks_port: 3090
-allow_external_connections: true
+allow_external_connections: false
 vif_only: true
 hijack_dns:
-- '*:53'
+  - '*:53'
 geoip_db_url: https://raw.githubusercontent.com/Loyalsoldier/geoip/release/Country.mmdb
 asn_db_url: https://raw.githubusercontent.com/Loyalsoldier/geoip/release/GeoLite2-ASN.mmdb
-proxy_latency_test_url: http://1.1.1.1/generate_204
-direct_latency_test_url: http://connectivitycheck.platform.hicloud.com/generate_204
+proxy_latency_test_url: http://www.gstatic.com/generate_204
+direct_latency_test_url: http://www.apple.com/library/test/success.html
 compat_route: false
 include_all_networks: false
 include_apns: false
 include_cellular_services: false
 include_local_networks: false
+real_ip_domains: ['*.tif7avhunf.sbs', '*.x324ffx7i1.sbs', '*.linkcube-cloud.org', '*.linkcubecloud.org', '*.eixcloud.com', '*.bambs.cc', '*.886008.xyz', '*.114837322.xyz', '*.u53e3.com', '*.266nets.com', '*.dickservice.top', '*.dickaws.top', '*.nokachishikimikika.xyz', '*.xn--yetu23ca.cn', '*.zukutotokilukushi.xyz', '*.37ccys.uk', '*.rlose.com', '*.pubdns.co', '*.163cdn-ai.net', '*.trafficmanager.net', '*.liangxin1.xyz', '*.lan', '*.local', '*.localhost', '*.localdomain', '*.home.arpa', '*.test', '*.invalid', '*.example', '*.linksys.com', '*.linksyssmartwifi.com', '*.time.edu.cn', '*.ntp.org.cn', '*.pool.ntp.org', '*.stun.*.*', '*.stun.*.*.*', '*.stun.*.*.*.*', '*.stun.*.*.*.*.*', '*.stun.playstation.net', '*.srv.nintendo.net', '*.nintendo.net', '*.xboxlive.com', '*.battlenet.com.cn', '*.wotgame.cn', '*.wggames.cn', '*.wowsgame.cn', '*.wargaming.net', '*.square-enix.com', '*.finalfantasyxiv.com', '*.ffxiv.com', '*.ff14.sdo.com', '*.msftconnecttest.com', '*.msftncsi.com', '*.ipv6.microsoft.com', '*.push.apple.com', '*.music.163.com', '*.126.net', '*.kuwo.cn', '*.y.qq.com', '*.music.tc.qq.com', '*.stream.qqmusic.qq.com', '*.xiami.com', '*.music.migu.cn', '*.mcdn.bilivideo.cn', '*.jjvip8.com', '*.nvidia.com', '*.nvidia.cn', '*.direct', '*.logon.battlenet.com.cn', '*.logon.battle.net', '*.blzstatic.cn', '*.cmpassport.com', '*.wosms.cn', '*.jegotrip.com.cn', '*.icitymobile.mobi', '*.pingan.com.cn', '*.cmbchina.com', '*.10099.com.cn', '*.microdone.cn', time.*.com, time.*.gov, time.*.edu.cn, time.*.apple.com, time1.*.com, time2.*.com, time3.*.com, time4.*.com, time5.*.com, time6.*.com, time7.*.com, ntp.*.com, ntp1.*.com, ntp2.*.com, ntp3.*.com, ntp4.*.com, ntp5.*.com, ntp6.*.com, ntp7.*.com, '*.*.*.srv.nintendo.net', '*.*.xboxlive.com', xbox.*.microsoft.com, xbox.*.*.microsoft.com, teredo.*.*, teredo.*.*.*, stun.*, localhost.*.qq.com, localhost.*.weixin.qq.com, ntp1.*.com, ntp2.*.com, ntp3.*.com, ntp4.*.com, ntp5.*.com, ntp6.*.com, ntp7.*.com, time1.*.com, time2.*.com, time3.*.com, time4.*.com, time5.*.com, time6.*.com, time7.*.com, PDC._msDCS.*.*, DC._msDCS.*.*, GC._msDCS.*.*, time.nist.gov, time1.cloud.tencent.com, ff.dorado.sdo.com, speedtest.cros.wr.pvp.net, swscan.apple.com, swquery.apple.com, swdownload.apple.com, swcdn.apple.com, swdist.apple.com, mesu.apple.com, musicapi.taihe.com, music.taihe.com, songsearch.kugou.com, trackercdn.kugou.com, api-jooxtt.sanook.com, api.joox.com, joox.com, aqqmusic.tc.qq.com, a.w.bilicdn1.com, api.bilibili.com, www.bilibili.com, www.douyu.com, activityapi.huya.com, activityapi.huya.com.w.cdngslb.com, localhost.ptlogin2.qq.com, localhost.sec.qq.com, proxy.golang.org, lens.l.google.com, shark007.net, cable.auth.com, network-test.debian.org, detectportal.firefox.com, resolver1.opendns.com, global.turn.twilio.com, global.stun.twilio.com, app.yinxiang.com, injections.adguard.org, local.adguard.org, music.163.com, y.qq.com, streamoc.music.tc.qq.com, mobileoc.music.tc.qq.com, isure.stream.qqmusic.qq.com, dl.stream.qqmusic.qq.com, amobile.music.tc.qq.com, music.migu.cn, id6.me, open.e.189.cn, opencloud.wostore.cn, id.mail.wo.cn, mdn.open.wo.cn, hmrz.wo.cn, nishub1.10010.com, enrichgw.10010.com, pool.ntp.org]
+
 dns:
   bootstrap:
-  - 223.5.5.5
-  - 119.29.29.29
+    - 223.5.5.5
+    - 119.29.29.29
   upstreams:
-    Global DNS:
-    - quic://223.5.5.5:853
-    - quic://223.6.6.6:853
-    - https://223.5.5.5/dns-query
-    - https://223.6.6.6/dns-query
-    - https://dns.alidns.com/dns-query
-    - https://dns.google/dns-query
-    - https://dns.cloudflare.com/dns-query
+    国内DNS:
+      - quic://223.5.5.5:853
+      - https://223.5.5.5/dns-query
+      - https://doh.pub/dns-query
     国外DNS:
-    - https://doh.sb/dns-query
-    - https://dns.google/dns-query
-    - https://dns.quad9.net/dns-query
-    - https://dns.adguard.com/dns-query
-    - https://cloudflare-dns.com/dns-query
-    BLOCK DNS:
-    - tls://dns.nextdns.io/c761db
-    - tls://dns.adguard-dns.com
-    - https://dns.nextdns.io/c761db
-    - https://dns.adguard.com/dns-query
-    - quic://223.5.5.5:853
-    - quic://223.6.6.6:853
-    - https://doh.pub/dns-query
+      - https://dns.google/dns-query
+      - https://cloudflare-dns.com/dns-query
+    EIX:
+      - https://zone.rlose.com:39933/api-query 
+      - https://radar.rlose.com/api-query
+    EdgeX:
+      - https://ns1.pubdns.co/dns-query/0224219b-c6c7-4012-ab8f-0001cb8c489e
+      - https://dnsdoh.trafficmanager.net/dns-query/0224219b-c6c7-4012-ab8f-0001cb8c489e
+    AmyTelecom:
+      - https://iqsjp.com:44443/dns-query/5435c77d-373e-4542-be71-04b14c65ef85
+      - https://destitute2725.com:44443/dns-query/5435c77d-373e-4542-be71-04b14c65ef85
+      - https://prolonged3729.com:443/dns-query/5435c77d-373e-4542-be71-04b14c65ef85
   forward:
-  - domain_wildcard:
-      match: '*'
-      value: Global DNS
-      disabled: false
-  - domain_wildcard:
-      match: '*'
-      value: 国外DNS
-      disabled: true
-  - domain_wildcard:
-      match: '*'
-      value: BLOCK DNS
-      disabled: true
+    - domain: { match: 'dnsdoh.trafficmanager.net', value: 国内DNS }
+    - domain: { match: 'ns1.pubdns.co', value: 国内DNS }
+    - domain_suffix: { match: 'rlose.com', value: 国内DNS }
+    - domain_suffix: { match: 'eixcloud.com', value: EIX }
+    - domain_suffix: { match: 'trafficmanager.net', value: EdgeX }
+    - domain_suffix: { match: 'liangxin1.xyz', value: EdgeX }
+    - domain_suffix: { match: 'tif7avhunf.sbs', value: AmyTelecom }
+    - domain_suffix: { match: 'x324ffx7i1.sbs', value: AmyTelecom }     
+    - domain_wildcard: { match: '*', value: 国内DNS }
   hosts:
-    example.com:
-    - www.example.com
-    localhost:
-    - 127.0.0.1
+    localhost: 127.0.0.1
+    oracle-bj.linkcubecloud.org: oracle-bj.linkcube-cloud.org
+    oracle-gz.linkcubecloud.org: oracle-gz.linkcube-cloud.org
+    oracle-sh.linkcubecloud.org: oracle-sh.linkcube-cloud.org
+    6047f413-ad53.163cdn-ai.net: 9f6072cc-59fb-11f.163cdn-ai.net
   block_ips:
-  - 1.2.3.4
-  - 4.3.2.1/32
+    - 1.2.3.4
+    - 4.3.2.1/32
   public_ip_lookup_url: https://ifconfig.me/ip
 
 policy_groups:
@@ -91,13 +86,12 @@ policy_groups:
 rules:
 - { rule_set: { match: https://raw.githubusercontent.com/laobanbiefangcu/ios_rule_script/master/rule/Surge/Reject/Reject.list, policy: REJECT } }
 - { rule_set: { match: https://raw.githubusercontent.com/laobanbiefangcu/ios_rule_script/master/rule/Surge/DouYin/DouYin.list, policy: DIRECT } }
-- { rule_set: { match: https://raw.githubusercontent.com/laobanbiefangcu/ios_rule_script/master/rule/Surge/Proxy/Proxy.list, policy: 节点选择 } }
 - { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/GitHub/GitHub.list, policy: 节点选择 } }
 - { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Discord/Discord.list, policy: 节点选择 } }
 - { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Docker/Docker.list, policy: 节点选择 } }
 - { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Rarbg/Rarbg.list, policy: 节点选择 } }
 - { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/LastFM/LastFM.list, policy: 节点选择 } }
-- { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/TikTok/TikTok.list, policy: 国外抖音 } }
+- { rule_set: { match: https://raw.githubusercontent.com/laobanbiefangcu/ios_rule_script/master/rule/Surge/TikTok/TikTok.list, policy: 国外抖音 } }
 - { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/YouTubeMusic/YouTubeMusic.list, policy: 油管视频 } }
 - { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/YouTube/YouTube.list, policy: 油管视频 } }
 - { rule_set: { match: https://raw.githubusercontent.com/laobanbiefangcu/ios_rule_script/master/rule/Surge/OpenAI/OpenAI.list, policy: 人工智能 } }
@@ -105,6 +99,7 @@ rules:
 - { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Copilot/Copilot.list, policy: 人工智能 } }
 - { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Gemini/Gemini.list, policy: 人工智能 } }
 - { rule_set: { match: https://raw.githubusercontent.com/laobanbiefangcu/ios_rule_script/master/rule/Surge/AI/AI.list, policy: 人工智能 } }
+- { rule_set: { match: https://raw.githubusercontent.com/laobanbiefangcu/ios_rule_script/master/rule/Surge/Proxy/Proxy.list, policy: 节点选择 } }
 - { rule_set: { match: https://raw.githubusercontent.com/laobanbiefangcu/ios_rule_script/master/rule/Surge/MovieTV/MovieTV.list, policy: 环球影视 } }
 - { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Netflix/Netflix.list, policy: 环球影视 } }
 - { rule_set: { match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Disney/Disney.list, policy: 环球影视 } }
