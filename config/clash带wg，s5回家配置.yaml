@@ -2,70 +2,55 @@ mixed-port: 7890
 allow-lan: true
 mode: Rule
 log-level: info
-ipv6: true
-external-controller: :9090
-http:
-  force-http-engine:
-    - '*:80'
-    - '*:4480' # BiliBili CDN
-    - '*:9102' # BiliBili CDN
-mitm:
-    - g.cn
-    - '*.google.cn'
-    - weather-data.apple.com # 默认只对 443 端口开启
-    - weather-data.apple.com:* # 使用通配符对所有端口开启
-    - '*.weather-data.apple.com' # 域名中也可以使用通配符
-    - '-exclude.weather-data.apple.com' # 用-前缀排除域名
-url-rewrite:
-    - ^http://g\.cn http://www.google.com header # 重写请求头的域名
-    - ^https?://www\.google\.cn https://www.google.com 302 # 直接返回一个 302 重定向的响应
-    - ^https?://ad\.example - reject # 拒绝请求
-cron:
-  # 定时执行 JavaScript 脚本
-  script:
-    - name: weather-us-aqi # 引用 script-providers 中的脚本
-      cron: '* * * * *' # cron 表达式，可以在 https://crontab.guru/ 获取更多介绍
-      timeout: 10 # script timeout in second (optional)
-      argument: '' # script argument (optional)
-      debug: false # 开发模式，每次执行前会从 provider 加载最新脚本
-script-providers:
-  weather-us-aqi:
-    url: https://raw.githubusercontent.com/STASH-NETWORKS-LIMITED/stash-example/main/script/iOS15_Weather_AQI_Standard.js
-    interval: 86400
-script:
-  shortcuts:
-    quic: network == 'udp' and (dst_port == 443 or dst_port == 4483 or dst_port == 9305)
+ipv6: true                   
+tcp-concurrent: true         
+global-client-fingerprint: chrome
+keep-alive-interval: 30
+keep-alive-idle: 600
+find-process-mode: strict
+geodata-mode: true
+geodata-loader: memconservative
+geosite-matcher: succinct
+profile: { store-selected: true, store-fake-ip: true }
+sniffer:
+  enable: true
+  force-dns-mapping: true
+  parse-pure-ip: true
+  override-destination: false
+  sniff:
+    HTTP: { ports: [80, 8080-8880], override-destination: true }
+    TLS:  { ports: [443, 8443] }
+    QUIC: { ports: [443, 8443] }
+  skip-domain: ['+.push.apple.com', 'Mijia Cloud']
 hosts:
-  '*.clash.dev': 127.0.0.1
-  '.dev': 127.0.0.1
-  'alpha.clash.dev': '::1'
-  hdbits.org: 179.43.184.130
-  tracker.hdbits.org: 179.43.184.130
-  i.hdbits.org: 179.43.184.130
-  t.hdbits.org: 179.43.184.130
-  img.hdbits.org: 179.43.184.130
-  omgwtfnzbs.org: 172.67.71.213
-  api.omgwtfnzbs.org: 172.67.71.213
+  hdbits.org: 179.43.168.158
+  tracker.hdbits.org: 179.43.168.158
+  i.hdbits.org: 179.43.168.158
+  t.hdbits.org: 179.43.168.158
+  img.hdbits.org: 179.43.168.158
 dns:
   enable: true
-  listen: 0.0.0.0:53
   ipv6: true
-  default-nameserver: [119.29.29.29, 223.5.5.5]
-  nameserver: [https://dns.alidns.com/dns-query, https://doh.pub/dns-query]
+  listen: '0.0.0.0:1053'
+  prefer-h3: false
+  respect-rules: false       
+  use-hosts: true
+  use-system-hosts: false
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+  cache-algorithm: arc
+  # 解析下面 DoH 服务器自身的域名，必须是国内可直连的明文 IP
+  default-nameserver: [223.5.5.5, 119.29.29.29, 182.254.116.116, 114.114.114.114]
+  nameserver: ['https://dns.alidns.com/dns-query', 'https://doh.pub/dns-query']
+  # 【关键·勿改】指回本机 DNS 监听口。填外部 DNS 会绕过 hosts 和 fake-ip-filter，
+  # 导致 linkcube 那种靠 hosts 映射的机场节点全部解析失败。端口须与 listen 一致。
+  proxy-server-nameserver: ['udp://127.0.0.1:1053']
+  # 每家机场的节点域名，指回它自己要求的 DNS。新增机场往对应行加后缀即可。
   nameserver-policy:
-    android-appboot.netflix.com: 1.1.1.1
-    android.prod.cloud.netflix.com: 1.1.1.1
-    appboot.netflix.com: 1.1.1.1
-    ios.prod.cloud.netflix.com: 1.1.1.1
-# fallback:
-#  - https://1.1.1.1/dns-query
-#  - https://dns.google/dns-query
-# fallback-filter:
-#   geoip: true
-#   geoip-code: CN
-#   ipcidr:
-#     - 240.0.0.0/4
-#     - 0.0.0.0/32
+    '+.eixcloud.com': ['https://zone.rlose.com:39933/api-query', 'https://radar.rlose.com/api-query']
+    '+.linkcubecloud.org': [223.5.5.5, 119.29.29.29]
+    '+.linkcube-cloud.org': [223.5.5.5, 119.29.29.29]
+  fake-ip-filter: ['+.tif7avhunf.sbs', '+.x324ffx7i1.sbs', '+.linkcube-cloud.org', '+.linkcubecloud.org', '+.eixcloud.com', '+.bambs.cc', '+.886008.xyz', '+.114837322.xyz', '+.u53e3.com', '+.266nets.com', '+.dickservice.top', '+.dickaws.top', '+.nokachishikimikika.xyz', '+.xn--yetu23ca.cn', '+.zukutotokilukushi.xyz', '+.37ccys.uk', '+.rlose.com', '+.pubdns.co', '+.163cdn-ai.net', '+.trafficmanager.net', '+.liangxin1.xyz', '+.lan', '+.local', '+.localhost', '+.localdomain', '+.home.arpa', '+.test', '+.invalid', '+.example', '+.linksys.com', '+.linksyssmartwifi.com', '+.time.edu.cn', '+.ntp.org.cn', '+.pool.ntp.org', '+.stun.*.*', '+.stun.*.*.*', '+.stun.*.*.*.*', '+.stun.*.*.*.*.*', '+.stun.playstation.net', '+.srv.nintendo.net', '+.nintendo.net', '+.xboxlive.com', '+.battlenet.com.cn', '+.wotgame.cn', '+.wggames.cn', '+.wowsgame.cn', '+.wargaming.net', '+.square-enix.com', '+.finalfantasyxiv.com', '+.ffxiv.com', '+.ff14.sdo.com', '+.msftconnecttest.com', '+.msftncsi.com', '+.ipv6.microsoft.com', '+.push.apple.com', '+.music.163.com', '+.126.net', '+.kuwo.cn', '+.y.qq.com', '+.music.tc.qq.com', '+.stream.qqmusic.qq.com', '+.xiami.com', '+.music.migu.cn', '+.mcdn.bilivideo.cn', '+.jjvip8.com', '+.nvidia.com', '+.nvidia.cn', '+.direct', '+.logon.battlenet.com.cn', '+.logon.battle.net', '+.blzstatic.cn', '+.cmpassport.com', '+.wosms.cn', '+.jegotrip.com.cn', '+.icitymobile.mobi', '+.pingan.com.cn', '+.cmbchina.com', '+.10099.com.cn', '+.microdone.cn', 'time.*.com', 'time.*.gov', 'time.*.edu.cn', 'time.*.apple.com', 'time1.*.com', 'time2.*.com', 'time3.*.com', 'time4.*.com', 'time5.*.com', 'time6.*.com', 'time7.*.com', 'ntp.*.com', 'ntp1.*.com', 'ntp2.*.com', 'ntp3.*.com', 'ntp4.*.com', 'ntp5.*.com', 'ntp6.*.com', 'ntp7.*.com', '*.*.*.srv.nintendo.net', '*.*.xboxlive.com', 'xbox.*.microsoft.com', 'xbox.*.*.microsoft.com', 'teredo.*.*', 'teredo.*.*.*', 'stun.*', 'localhost.*.qq.com', 'localhost.*.weixin.qq.com', 'ntp1.*.com', 'ntp2.*.com', 'ntp3.*.com', 'ntp4.*.com', 'ntp5.*.com', 'ntp6.*.com', 'ntp7.*.com', 'time1.*.com', 'time2.*.com', 'time3.*.com', 'time4.*.com', 'time5.*.com', 'time6.*.com', 'time7.*.com', 'PDC._msDCS.*.*', 'DC._msDCS.*.*', 'GC._msDCS.*.*', 'time.nist.gov', 'time1.cloud.tencent.com', 'ff.dorado.sdo.com', 'speedtest.cros.wr.pvp.net', 'swscan.apple.com', 'swquery.apple.com', 'swdownload.apple.com', 'swcdn.apple.com', 'swdist.apple.com', 'mesu.apple.com', 'musicapi.taihe.com', 'music.taihe.com', 'songsearch.kugou.com', 'trackercdn.kugou.com', 'api-jooxtt.sanook.com', 'api.joox.com', 'joox.com', 'aqqmusic.tc.qq.com', 'a.w.bilicdn1.com', 'api.bilibili.com', 'www.bilibili.com', 'www.douyu.com', 'activityapi.huya.com', 'activityapi.huya.com.w.cdngslb.com', 'localhost.ptlogin2.qq.com', 'localhost.sec.qq.com', 'proxy.golang.org', 'lens.l.google.com', 'shark007.net', 'cable.auth.com', 'network-test.debian.org', 'detectportal.firefox.com', 'resolver1.opendns.com', 'global.turn.twilio.com', 'global.stun.twilio.com', 'app.yinxiang.com', 'injections.adguard.org', 'local.adguard.org', 'streamoc.music.tc.qq.com', 'mobileoc.music.tc.qq.com', 'isure.stream.qqmusic.qq.com', 'dl.stream.qqmusic.qq.com', 'amobile.music.tc.qq.com', 'id6.me', 'open.e.189.cn', 'opencloud.wostore.cn', 'id.mail.wo.cn', 'mdn.open.wo.cn', 'hmrz.wo.cn', 'nishub1.10010.com', 'enrichgw.10010.com']
 proxies:
 #添加wg纯V4配置
 - {name: 🇨🇳 unraid, type: wireguard, server: 域名, port: 端口, ip: 虚拟内网IP地址, private-key: 私钥, public-key: 公钥, AllowedIPs = ::/0, 0.0.0.0/0, dns: [119.29.29.29], udp: true}
