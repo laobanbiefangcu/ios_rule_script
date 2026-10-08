@@ -56,3 +56,4 @@ IP-CIDR,58.83.177.235/32,no-resolve
 DOMAIN,app.chat.xiaomi.net
 DOMAIN,resolver.msg.xiaomi.net
 DEST-PORT,5222
+DOMAIN,msmp.abchina.com.cn
