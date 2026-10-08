@@ -5,6 +5,30 @@
 # DOMAIN-SUFFIX: 4
 # TOTAL: 4
 payload:
+  # Apple Intelligence / Siri / Relay 及相关服务
+  - DOMAIN,guzzoni.apple.com
+  - DOMAIN,api-siri-prod.apple.com
+  - DOMAIN,mask-api.fe.apple-dns.net
+  - DOMAIN,mask-api.icloud.com
+  - DOMAIN,mask-t.apple-dns.net
+  - DOMAIN,mask.apple-dns.net
+  - DOMAIN-SUFFIX,smoot.apple.com
+  - DOMAIN-SUFFIX,apple-relay.apple.com
+  - DOMAIN-SUFFIX,apple-relay.cloudflare.com
+  - DOMAIN-SUFFIX,apple-relay.fastly-edge.com
+  - DOMAIN-SUFFIX,apple-relay.mask.apple-dns.net
+  - DOMAIN-SUFFIX,apple-relay.akamaized.net
+  - DOMAIN-SUFFIX,cp4.cloudflare.com
+  - DOMAIN-SUFFIX,gspe1-ssl.ls.apple.com
+  - DOMAIN-SUFFIX,gateway.icloud.com
+  - DOMAIN-SUFFIX,ls.apple.com
+  - DOMAIN-SUFFIX,mask-h2.icloud.com
+  - DOMAIN-SUFFIX,mask.icloud.com
+  - DOMAIN-SUFFIX,apps.mzstatic.com
+  - DOMAIN-SUFFIX,humb.apple.com
+  - DOMAIN-KEYWORD,siri
+
+  # 其他 AI 及相关服务
   - DOMAIN-SUFFIX,wrtn.jp
   - DOMAIN-SUFFIX,wrtn.ai
   - DOMAIN,wrtn-asset-library.s3.ap-northeast-2.amazonaws.com
@@ -14,12 +38,6 @@ payload:
   - DOMAIN-SUFFIX,perplexity.ai
   - DOMAIN-SUFFIX,pplx.ai
   - DOMAIN-SUFFIX,meta.ai
-  - DOMAIN,api-siri-prod.apple.com
-  - DOMAIN,guzzoni.apple.com
-  - DOMAIN-SUFFIX,apps.mzstatic.com
-  - DOMAIN-SUFFIX,gateway.icloud.com
-  - DOMAIN-SUFFIX,humb.apple.com
-  - DOMAIN-SUFFIX,smoot.apple.com
   - DOMAIN-SUFFIX,poe.com
   - DOMAIN-SUFFIX,claudeusercontent.com
   - DOMAIN-SUFFIX,kagi.com
@@ -72,11 +90,6 @@ payload:
   - DOMAIN-SUFFIX,x.ai
   - DOMAIN-KEYWORD,openai
   - DOMAIN-KEYWORD,alkalimakersuite-pa.clients6.google.com
-  - DOMAIN-SUFFIX,apple-relay.akamaized.net
-  - DOMAIN-SUFFIX,apple-relay.apple.com
-  - DOMAIN-SUFFIX,apple-relay.cloudflare.com
-  - DOMAIN-SUFFIX,apple-relay.fastly-edge.com
-  - DOMAIN-SUFFIX,apple-relay.mask.apple-dns.net
   - DOMAIN,oauth2.googleapis.com
   - DOMAIN,serviceusage.googleapis.com
   - DOMAIN,cloudaicompanion.googleapis.com
@@ -96,12 +109,3 @@ payload:
   - DOMAIN-SUFFIX,midjourney.com
   - DOMAIN-SUFFIX,sentry.io
   - DOMAIN-SUFFIX,chatgpt.site
-  - DOMAIN,mask-api.fe.apple-dns.net
-  - DOMAIN,mask-api.icloud.com
-  - DOMAIN,mask-t.apple-dns.net
-  - DOMAIN,mask.apple-dns.net
-  - DOMAIN-SUFFIX,gspe1-ssl.ls.apple.com
-  - DOMAIN-SUFFIX,ls.apple.com
-  - DOMAIN-SUFFIX,mask-h2.icloud.com
-  - DOMAIN-SUFFIX,mask.icloud.com
-  - DOMAIN-KEYWORD,siri
