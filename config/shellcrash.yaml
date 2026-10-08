@@ -205,7 +205,7 @@ rule-providers:
     TencentVideo: { type: http, behavior: classical, interval: 7200, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/TencentVideo/TencentVideo.yaml', path: ./Rules/TencentVideo.yaml }
     TestFlight: { type: http, behavior: classical, interval: 7200, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/TestFlight/TestFlight.yaml', path: ./Rules/TestFlight.yaml }
     TIDAL: { type: http, behavior: classical, interval: 7200, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/TIDAL/TIDAL.yaml', path: ./Rules/TIDAL.yaml }
-    TikTok: { type: http, behavior: classical, interval: 7200, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/TikTok/TikTok.yaml', path: ./Rules/TikTok.yaml }
+    TikTok: { type: http, behavior: classical, interval: 7200, url: 'https://raw.githubusercontent.com/laobanbiefangcu/ios_rule_script/master/rule/Clash/TikTok/TikTok.yaml', path: ./Rules/TikTok.yaml }
     Tmdb: { type: http, behavior: classical, interval: 7200, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Tmdb/Tmdb.yaml', path: ./Rules/Tmdb.yaml }
     TVB: { type: http, behavior: classical, interval: 7200, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/TVB/TVB.yaml', path: ./Rules/TVB.yaml }
     Twitter: { type: http, behavior: classical, interval: 7200, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Twitter/Twitter.yaml', path: ./Rules/Twitter.yaml }
@@ -223,7 +223,6 @@ rule-providers:
     YouTubeMusic: { type: http, behavior: classical, interval: 7200, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/YouTubeMusic/YouTubeMusic.yaml', path: ./Rules/YouTubeMusic.yaml }
 rules:
  - RULE-SET,Reject,REJECT
- - RULE-SET,Proxy,🚀 节点选择
  - RULE-SET,Adobe,🛑 全球拦截
  - RULE-SET,Docker,🚀 节点选择
  - RULE-SET,Discord,🚀 节点选择
@@ -232,6 +231,7 @@ rules:
  - RULE-SET,Copilot,🧭 人工智能
  - RULE-SET,Gemini,🧭 人工智能
  - RULE-SET,AI,🧭 人工智能
+ - RULE-SET,Proxy,🚀 节点选择
  - RULE-SET,MovieTV,📺 环球影视
  - RULE-SET,AppleTV,📺 环球影视
  - RULE-SET,Netflix,📺 环球影视
