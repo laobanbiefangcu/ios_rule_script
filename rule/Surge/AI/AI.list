@@ -25,7 +25,7 @@ DOMAIN,apps.mzstatic.com
 DOMAIN,gateway.icloud.com
 DOMAIN,cp4.cloudflare.com
 DOMAIN-SUFFIX,humb.apple.com
-DOMAIN,guzzoni.smoot.apple.com
+DOMAIN-SUFFIX,smoot.apple.com
 DOMAIN-SUFFIX,poe.com
 DOMAIN-SUFFIX,claudeusercontent.com
 DOMAIN-SUFFIX,kagi.com
