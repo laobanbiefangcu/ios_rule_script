@@ -4,15 +4,16 @@ sni-sniffing = true
 ip-mode = dual
 # > Google，Cloudflare，腾讯，阿里云 DoH
 doh-server = https://doh.pub/dns-query,https://dns.alidns.com/dns-query
+dns-server = 119.29.29.29,182.254.116.116,223.5.5.5,223.6.6.6
 # > IPv6 支持（默认关闭）
 ipv6 = true
+real-ip = *.tif7avhunf.sbs,*.x324ffx7i1.sbs,*.linkcube-cloud.org,*.linkcubecloud.org,*.eixcloud.com,*.bambs.cc,*.886008.xyz,*.114837322.xyz,*.u53e3.com,*.266nets.com,*.dickservice.top,*.dickaws.top,*.nokachishikimikika.xyz,*.xn--yetu23ca.cn,*.zukutotokilukushi.xyz,*.37ccys.uk,*.rlose.com,*.pubdns.co,*.163cdn-ai.net,*.trafficmanager.net,*.liangxin1.xyz,*.lan,*.local,*.localhost,*.localdomain,*.home.arpa,*.test,*.invalid,*.example,*.linksys.com,*.linksyssmartwifi.com,*.time.edu.cn,*.ntp.org.cn,*.pool.ntp.org,*.stun.*.*,*.stun.*.*.*,*.stun.*.*.*.*,*.stun.*.*.*.*.*,*.stun.playstation.net,*.srv.nintendo.net,*.nintendo.net,*.xboxlive.com,*.battlenet.com.cn,*.wotgame.cn,*.wggames.cn,*.wowsgame.cn,*.wargaming.net,*.square-enix.com,*.finalfantasyxiv.com,*.ffxiv.com,*.ff14.sdo.com,*.msftconnecttest.com,*.msftncsi.com,*.ipv6.microsoft.com,*.push.apple.com,*.music.163.com,*.126.net,*.kuwo.cn,*.y.qq.com,*.music.tc.qq.com,*.stream.qqmusic.qq.com,*.xiami.com,*.music.migu.cn,*.mcdn.bilivideo.cn,*.jjvip8.com,*.nvidia.com,*.nvidia.cn,*.direct,*.logon.battlenet.com.cn,*.logon.battle.net,*.blzstatic.cn,*.cmpassport.com,*.wosms.cn,*.jegotrip.com.cn,*.icitymobile.mobi,*.pingan.com.cn,*.cmbchina.com,*.10099.com.cn,*.microdone.cn,time.*.com,time.*.gov,time.*.edu.cn,time.*.apple.com,time1.*.com,time2.*.com,time3.*.com,time4.*.com,time5.*.com,time6.*.com,time7.*.com,ntp.*.com,ntp1.*.com,ntp2.*.com,ntp3.*.com,ntp4.*.com,ntp5.*.com,ntp6.*.com,ntp7.*.com,*.*.*.srv.nintendo.net,*.*.xboxlive.com,xbox.*.microsoft.com,xbox.*.*.microsoft.com,teredo.*.*,teredo.*.*.*,stun.*,localhost.*.qq.com,localhost.*.weixin.qq.com,ntp1.*.com,ntp2.*.com,ntp3.*.com,ntp4.*.com,ntp5.*.com,ntp6.*.com,ntp7.*.com,time1.*.com,time2.*.com,time3.*.com,time4.*.com,time5.*.com,time6.*.com,time7.*.com,PDC._msDCS.*.*,DC._msDCS.*.*,GC._msDCS.*.*,time.nist.gov,time1.cloud.tencent.com,ff.dorado.sdo.com,speedtest.cros.wr.pvp.net,swscan.apple.com,swquery.apple.com,swdownload.apple.com,swcdn.apple.com,swdist.apple.com,mesu.apple.com,musicapi.taihe.com,music.taihe.com,songsearch.kugou.com,trackercdn.kugou.com,api-jooxtt.sanook.com,api.joox.com,joox.com,aqqmusic.tc.qq.com,a.w.bilicdn1.com,api.bilibili.com,www.bilibili.com,www.douyu.com,activityapi.huya.com,activityapi.huya.com.w.cdngslb.com,localhost.ptlogin2.qq.com,localhost.sec.qq.com,proxy.golang.org,lens.l.google.com,shark007.net,cable.auth.com,network-test.debian.org,detectportal.firefox.com,resolver1.opendns.com,global.turn.twilio.com,global.stun.twilio.com,app.yinxiang.com,injections.adguard.org,local.adguard.org,music.163.com,y.qq.com,streamoc.music.tc.qq.com,mobileoc.music.tc.qq.com,isure.stream.qqmusic.qq.com,dl.stream.qqmusic.qq.com,amobile.music.tc.qq.com,music.migu.cn,id6.me,open.e.189.cn,opencloud.wostore.cn,id.mail.wo.cn,mdn.open.wo.cn,hmrz.wo.cn,nishub1.10010.com,enrichgw.10010.com,pool.ntp.org
 # > 跳过代理
 skip-proxy = 10.0.0.0/8,172.16.0.0/12,localhost,*.local,e.crashlynatics.com,*.cmpassport.com,*.jegotrip.com.cn,*.icitymobile.mobi,id6.me,*.pingan.com.cn,*.cmbchina.com
 # > 旁路隧道
-#需要wireguard回家的话，需要把内网路由删掉，比如我家内网网段是192.168.1.1-192.168.1.255，,需删除192.168.0.0/24
-bypass-tun = 10.0.0.0/8,100.64.0.0/10,127.0.0.0/8,169.254.0.0/16,172.16.0.0/12,192.0.0.0/24,192.0.2.0/24,192.88.99.0/24,192.168.0.0/16,198.51.100.0/24,203.0.113.0/24,224.0.0.0/4,255.255.255.255/32
+bypass-tun = 10.0.0.0/8,100.64.0.0/10,127.0.0.0/8,169.254.0.0/16,172.16.0.0/12,192.0.0.0/24,192.0.2.0/24,192.88.99.0/24,198.51.100.0/24,203.0.113.0/24,224.0.0.0/4,255.255.255.255/32
 # > dns服务器
-dns-server = 223.5.5.5,223.6.6.6,119.29.29.29
+dns-server = 119.29.29.29,182.254.116.116,223.5.5.5,223.6.6.6
 # > wifi 访问
 allow-wifi-access = false
 # > wifi 访问（http 端口）
@@ -30,7 +31,20 @@ interface-mode = auto
 switch-node-after-failure-times = 3
 # > 资源解析器
 # resource-parser = https://raw.githubusercontent.com/Peng-YM/Sub-Store/master/backend/dist/sub-store-parser.loon.min.js
+# ssid-trigger = "101":DIRECT,"505":DIRECT,"606":DIRECT,"707":DIRECT,"808":DIRECT,"909":DIRECT,"101_5G":DIRECT,"505_5G":DIRECT,"606_5G":DIRECT,"707_5G":DIRECT,"808_5G":DIRECT,"909_5G":DIRECT,"default":RULE
 [Host]
+api.twitter.com = 2606:4700:4700::100
+hdbits.org = 179.43.168.158
+tracker.hdbits.org = 179.43.168.158
+i.hdbits.org = 179.43.168.158
+t.hdbits.org = 179.43.168.158
+img.hdbits.org = 179.43.168.158
+omgwtfnzbs.org = 172.67.71.213
+api.omgwtfnzbs.org = 172.67.71.213
+android-appboot.netflix.com = server:1.1.1.1
+android.prod.cloud.netflix.com = server:1.1.1.1
+appboot.netflix.com = server:1.1.1.1
+ios.prod.cloud.netflix.com = server:1.1.1.1
 *.taobao.com = server:223.5.5.5
 *.tmall.com = server:223.5.5.5
 *.jd.com = server:119.28.28.28
@@ -51,6 +65,21 @@ switch-node-after-failure-times = 3
 mtalk.google.com = 108.177.125.188
 dl.google.com = server:119.29.29.29
 dl.l.google.com = server:119.29.29.29
+oracle-bj.linkcubecloud.org = oracle-bj.linkcube-cloud.org
+oracle-gz.linkcubecloud.org = oracle-gz.linkcube-cloud.org
+oracle-sh.linkcubecloud.org = oracle-sh.linkcube-cloud.org
+6047f413-ad53.163cdn-ai.net = 9f6072cc-59fb-11f.163cdn-ai.net
+bepbjbgp01.163cdn-ai.net = fe5c432e-59f5-11f1.163cdn-ai.net
+bepgzbgp01.163cdn-ai.net = fe5c432e-59f5-11f2.163cdn-ai.net
+bepshbgp01.163cdn-ai.net = fe5c432e-59f5-11f3.163cdn-ai.net
+nodeseek.trafficmanager.net = server:https://ns1.pubdns.co/dns-query/0224219b-c6c7-4012-ab8f-0001cb8c489e
+brookseek.trafficmanager.net = server:https://ns1.pubdns.co/dns-query/0224219b-c6c7-4012-ab8f-0001cb8c489e
+aws-link30.liangxin1.xyz = server:https://ns1.pubdns.co/dns-query/0224219b-c6c7-4012-ab8f-0001cb8c489e
+aws-link20.liangxin1.xyz = server:https://ns1.pubdns.co/dns-query/0224219b-c6c7-4012-ab8f-0001cb8c489e
+3f63b8c5-0af7-49e5-9041-2bf3a563e0a1.tif7avhunf.sbs = 2ed4b233-6acc-433e-9f60-2bcc93c52f04.tif7avhunf.sbs
+61e98e24-bddf-4bb3-a5ae-5d0f9b089cf2.x324ffx7i1.sbs = d9b65eaa-5ef3-4f52-a916-5bc1134310d0.x324ffx7i1.sbs
+2ed4b233-6acc-433e-9f60-2bcc93c52f04.tif7avhunf.sbs = server:https://iqsjp.com:44443/dns-query/5435c77d-373e-4542-be71-04b14c65ef85
+d9b65eaa-5ef3-4f52-a916-5bc1134310d0.x324ffx7i1.sbs = server:https://iqsjp.com:44443/dns-query/5435c77d-373e-4542-be71-04b14c65ef85
 
 [Proxy]
 #Wireguard配置
@@ -93,7 +122,7 @@ https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge
 https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Docker/Docker.list, policy=节点选择, tag=Docker, enabled=true
 https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Rarbg/Rarbg.list, policy=节点选择, tag=Rarbg, enabled=true
 https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/LastFM/LastFM.list, policy=节点选择, tag=LastFM, enabled=true
-https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/TikTok/TikTok.list, policy=国外抖音, tag=TikTok, enabled=true
+https://raw.githubusercontent.com/laobanbiefangcu/ios_rule_script/master/rule/Surge/TikTok/TikTok.list, policy=国外抖音, tag=TikTok, enabled=true
 https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/YouTubeMusic/YouTubeMusic.list, policy=油管视频, tag=YouTubeMusic, enabled=true
 https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/YouTube/YouTube.list, policy=油管视频, tag=YouTube, enabled=true
 https://raw.githubusercontent.com/laobanbiefangcu/ios_rule_script/master/rule/Surge/OpenAI/OpenAI.list, policy=人工智能, tag=OpenAI, enabled=true
