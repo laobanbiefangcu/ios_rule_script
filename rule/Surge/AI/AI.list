@@ -103,3 +103,11 @@ DOMAIN-SUFFIX,manus.im
 DOMAIN-SUFFIX,midjourney.com
 DOMAIN-SUFFIX,sentry.io
 DOMAIN-SUFFIX,chatgpt.site
+DOMAIN,mask-api.fe.apple-dns.net
+DOMAIN,mask-api.icloud.com
+DOMAIN,mask-t.apple-dns.net
+DOMAIN,mask.apple-dns.net
+DOMAIN-SUFFIX,ls.apple.com
+DOMAIN-SUFFIX,mask-h2.icloud.com
+DOMAIN-SUFFIX,mask.icloud.com
+DOMAIN-KEYWORD,siri
