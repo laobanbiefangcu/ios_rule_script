@@ -54,3 +54,4 @@ payload:
   - IP-CIDR,39.156.81.172/31,no-resolve
   - IP-CIDR,58.83.177.220/32,no-resolve
   - IP-CIDR,58.83.177.235/32,no-resolve
+  - DOMAIN,msmp.abchina.com.cn
